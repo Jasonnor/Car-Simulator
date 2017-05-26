@@ -45,47 +45,48 @@ function init() {
 
     // Draw Map
     var map = [
-        [-6, 0, -6, 22],
-        [-6, 22, 18, 22],
-        [18, 22, 18, 37],
-        [6, 0, 6, 10],
-        [6, 10, 30, 10],
-        [30, 10, 30, 37]
+        [-6, 0, -6, 22, -1, 0],
+        [-6, 22, 18, 22, 0, 1],
+        [18, 22, 18, 37, -1, 0],
+        [6, 0, 6, 10, 1, 0],
+        [6, 10, 30, 10, 0, -1],
+        [30, 10, 30, 37, 1, 0]
     ];
-    var planeHeight = 6;
-    THREE.ImageUtils.crossOrigin = "";
-    var image = document.createElement('img');
-    image.src = './Car-Module/src/texture_wall.jpg';
-    var texture = new THREE.Texture(image);
-    texture.needsUpdate = true;
-    var material = new THREE.MeshBasicMaterial({
-        map: texture
-    });
-
-    map.forEach(function (coordinate) {
-        geometry = new THREE.Geometry();
-        geometry.vertices.push(
-            new THREE.Vector3(coordinate[0], coordinate[1], 0),
-            new THREE.Vector3(coordinate[2], coordinate[3], 0),
-            new THREE.Vector3(coordinate[2], coordinate[3], planeHeight),
-            new THREE.Vector3(coordinate[0], coordinate[1], planeHeight)
-        );
-        geometry.faces.push(
-            new THREE.Face3(0, 1, 2),
-            new THREE.Face3(2, 3, 0)
-        );
-        var plane = new THREE.Mesh(geometry, material);
-        scene.add(plane);
+    var wallHeight = 10;
+    var wallWidth = 2;
+    var loader = new THREE.TextureLoader();
+    loader.load('./Car-Module/src/texture_wall.jpg', function (texture) {
+        material = new THREE.MeshBasicMaterial({
+            map: texture
+        });
+        map.forEach(function (coordinate) {
+            var xDistance = coordinate[2] - coordinate[0];
+            var yDistance = coordinate[3] - coordinate[1];
+            var distance = Math.sqrt(xDistance * xDistance + yDistance * yDistance);
+            var radians = Math.atan2(yDistance, xDistance);
+            geometry = new THREE.BoxGeometry(distance + Math.abs(coordinate[5] * wallWidth), wallWidth, wallHeight);
+            var wall = new THREE.Mesh(geometry, material);
+            wall.position.set((coordinate[0] + coordinate[2]) / 2 + coordinate[4] * wallWidth / 2 - coordinate[5] * wallWidth / 2,
+                (coordinate[1] + coordinate[3]) / 2 + coordinate[5] * wallWidth / 2, wallHeight / 2);
+            wall.rotateZ(radians);
+            scene.add(wall);
+        });
     });
 
     // Create Sphere
-    var geometry = new THREE.SphereGeometry(3, 32, 32);
-    var material = new THREE.MeshBasicMaterial({
-        color: 0xff00ff
+    var sphereGeometry = new THREE.SphereGeometry(3, 32, 32);
+    loader = new THREE.TextureLoader();
+    loader.load('./Car-Module/src/texture_rock.jpg', function (texture) {
+        texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+        texture.offset.set(0, 0);
+        texture.repeat.set(2, 2);
+        material = new THREE.MeshBasicMaterial({
+            map: texture
+        });
+        var sphere = new THREE.Mesh(sphereGeometry, material);
+        sphere.position.set(0, 0, 3);
+        scene.add(sphere);
     });
-    var sphere = new THREE.Mesh(geometry, material);
-    sphere.position.set(0, 0, 3);
-    scene.add(sphere);
 
     // Create an event listener that resizes the renderer with the browser window.
     window.addEventListener('resize', function () {
