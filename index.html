@@ -19,6 +19,11 @@
 			<span id="speed">10</span>
 			<input id="speedRange" type="range" min="1" max="30" value="10" oninput="updateSpeed()" onchange="updateSpeed()">
 		</p>
+		<p>Camera:
+			<input id="firstPerson" type="radio" name="camera" oninput="updateCamera()" onchange="updateCamera()">First Person
+			<input id="thirdPerson" type="radio" name="camera" checked="checked" oninput="updateCamera()" onchange="updateCamera()">Third
+			Person
+		</p>
 	</div>
 	<script src="./Car-Module/js/lib/three.min.js"></script>
 	<script src="./Car-Module/js/lib/Detector.js"></script>

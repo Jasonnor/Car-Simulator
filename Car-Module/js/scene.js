@@ -7,6 +7,9 @@ var posX = 0.0,
     angleCar = 90.0,
     speed = 10;
 
+var run = false,
+    firstPerson = false;
+
 if (Detector.webgl) {
     init();
     animate();
@@ -21,6 +24,7 @@ function init() {
     // Create Camera
     camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 20000);
     camera.position.set(0, 0, 120);
+    camera.lookAt(scene.position);
     scene.add(camera);
 
     // Create Renderer
@@ -162,7 +166,17 @@ function init() {
     };
 }
 
-var run = false;
+function updateCamera() {
+    // First Person
+    if (document.getElementById("firstPerson").checked == true) {
+        firstPerson = true;
+    }
+    // Third Person
+    else if (document.getElementById("thirdPerson").checked == true) {
+        firstPerson = false;
+        camera.position.set(0, 0, 120);
+    }
+}
 
 function updateSpeed() {
     speed = document.getElementById('speedRange').value;
@@ -183,10 +197,12 @@ function updateMotion() {
     if (run) {
         var phi = degreeToRadian(angleCar);
         var delta = degreeToRadian(angleWheel);
-        posX = posX + Math.cos(phi + delta) + Math.sin(delta) * Math.sin(phi);
-        posY = posY + Math.sin(phi + delta) - Math.sin(delta) * Math.cos(phi);
-        rotY = rotY + 0.1 * Math.cos(phi + delta) + Math.sin(delta) * Math.sin(phi);
-        rotX = rotX - 0.1 * Math.sin(phi + delta) - Math.sin(delta) * Math.cos(phi);
+        deltaX = Math.cos(phi + delta) + Math.sin(delta) * Math.sin(phi);
+        deltaY = Math.sin(phi + delta) - Math.sin(delta) * Math.cos(phi);
+        posX = posX + deltaX;
+        posY = posY + deltaY;
+        rotY = rotY + 0.1 * deltaX;
+        rotX = rotX - 0.1 * deltaY;
         phi = phi - Math.asin((2.0 * Math.sin(delta)) / 6.0);
         angleCar = 180.0 * phi / Math.PI;
         if (angleCar > 270)
@@ -207,8 +223,20 @@ function degreeToRadian(degree) {
 
 function animate() {
     requestAnimationFrame(animate);
+    var angle = degreeToRadian(angleCar - 90);
     car.position.set(posX, posY, 3);
-    car.rotation.set(rotX, rotY, 0);
+    if (firstPerson) {
+        car.rotation.set(0, 0, angle);
+        var angle = degreeToRadian(angleCar);
+        var relativeCameraOffset = new THREE.Vector3(0, -6, 6);
+        var cameraOffset = relativeCameraOffset.applyMatrix4(car.matrixWorld);
+        camera.position.x = cameraOffset.x;
+        camera.position.y = cameraOffset.y;
+        camera.position.z = cameraOffset.z;
+        camera.lookAt(new THREE.Vector3(posX + 10.0 * Math.cos(angle), posY + 10.0 * Math.sin(angle), 6));
+    } else {
+        car.rotation.set(rotX, rotY, 0);
+        controls.update();
+    }
     renderer.render(scene, camera);
-    controls.update();
 }
