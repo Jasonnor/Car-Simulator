@@ -8,11 +8,14 @@ canvas {
     height: 100%;
 }
 
-#info {
+.status {
     position: absolute;
-    top: 10px;
-    width: 100%;
-    text-align: center;
-    z-index: 100;
     display: block;
+    top: 5px;
+    left: 5px;
+    z-index: 100;
+}
+
+p {
+    margin: 10px;
 }

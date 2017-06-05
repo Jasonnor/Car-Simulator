@@ -4,8 +4,7 @@ var posX = 0.0,
     rotX = 0.0,
     rotY = 0.0,
     angleWheel = 0.0,
-    angleCar = 90.0,
-    time = 0;
+    angleCar = 90.0;
 
 if (Detector.webgl) {
     init();
@@ -96,7 +95,7 @@ function init() {
         scene.add(car);
     });
 
-    setInterval(updateMotion, 300);
+    setInterval(updateMotion, 100);
 
     // Create an event listener that resizes the renderer with the browser window.
     window.addEventListener('resize', function () {
@@ -113,15 +112,14 @@ function init() {
                 rotY += 0.1;
                 break;
             case 65:
-            case 97:
+                // A
                 if (angleWheel > -40)
                     --angleWheel;
                 break;
 
             case 38:
             case 87:
-            case 119:
-                // Up
+                // Up & W
                 ++posY;
                 rotX += 0.1;
                 break;
@@ -132,22 +130,27 @@ function init() {
                 rotY += 0.1;
                 break;
             case 68:
-            case 100:
+                // D
                 if (angleWheel < 40)
                     ++angleWheel;
                 break;
 
             case 40:
             case 83:
-            case 115:
-                // Down
+                // Down & S
                 --posY;
                 rotX += 0.1;
                 break;
 
             case 32:
-                // Space
+                // Start/Stop (space)
                 run = !run;
+                break;
+
+            case 82:
+                // Reset (R)
+                posX = posY = rotX = rotY = angleWheel = 0.0;
+                angleCar = 90.0;
                 break;
         }
     };
@@ -155,17 +158,13 @@ function init() {
 
 var run = false;
 
-function timer() {
-    time += 10;
-}
-
 function updateMotion() {
     if (run) {
         var phi = degreeToRadian(angleCar);
         var delta = degreeToRadian(angleWheel);
         posX = posX + Math.cos(phi + delta) + Math.sin(delta) * Math.sin(phi);
-        rotY = rotY + 0.1 * Math.cos(phi + delta) + Math.sin(delta) * Math.sin(phi);
         posY = posY + Math.sin(phi + delta) - Math.sin(delta) * Math.cos(phi);
+        rotY = rotY + 0.1 * Math.cos(phi + delta) + Math.sin(delta) * Math.sin(phi);
         rotX = rotX - 0.1 * Math.sin(phi + delta) - Math.sin(delta) * Math.cos(phi);
         phi = phi - Math.asin((2.0 * Math.sin(delta)) / 6.0);
         angleCar = 180.0 * phi / Math.PI;
@@ -174,6 +173,10 @@ function updateMotion() {
         else if (angleCar < -90)
             angleCar += 360;
         console.log(angleCar);
+        document.getElementById('x').innerHTML = posX.toFixed(4);
+        document.getElementById('y').innerHTML = posY.toFixed(4);
+        document.getElementById('angleWheel').innerHTML = angleWheel.toFixed(1);
+        document.getElementById('angleCar').innerHTML = angleCar.toFixed(1);
     }
 }
 
