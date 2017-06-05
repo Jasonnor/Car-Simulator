@@ -1,3 +1,12 @@
+var scene, camera, renderer, controls, car;
+var posX = 0.0,
+    posY = 0.0,
+    rotX = 0.0,
+    rotY = 0.0,
+    angleWheel = 0.0,
+    angleCar = 90.0,
+    time = 0;
+
 if (Detector.webgl) {
     init();
     animate();
@@ -5,8 +14,6 @@ if (Detector.webgl) {
     var warning = Detector.getWebGLErrorMessage();
     document.getElementById('container').appendChild(warning);
 }
-
-var scene, camera, renderer, controls;
 
 function init() {
     scene = new THREE.Scene();
@@ -73,7 +80,7 @@ function init() {
         });
     });
 
-    // Create Sphere
+    // Create Car Sphere
     var sphereGeometry = new THREE.SphereGeometry(3, 32, 32);
     loader = new THREE.TextureLoader();
     loader.load('./Car-Module/src/texture_rock.jpg', function (texture) {
@@ -83,10 +90,13 @@ function init() {
         material = new THREE.MeshBasicMaterial({
             map: texture
         });
-        var sphere = new THREE.Mesh(sphereGeometry, material);
-        sphere.position.set(0, 0, 3);
-        scene.add(sphere);
+        car = new THREE.Mesh(sphereGeometry, material);
+        car.position.set(posX, posY, 3);
+        //car.geometry.attributes.position.needsUpdate = true;
+        scene.add(car);
     });
+
+    setInterval(updateMotion, 300);
 
     // Create an event listener that resizes the renderer with the browser window.
     window.addEventListener('resize', function () {
@@ -94,10 +104,94 @@ function init() {
         camera.aspect = window.innerWidth / window.innerHeight;
         camera.updateProjectionMatrix();
     });
+
+    document.onkeydown = function (e) {
+        switch (e.keyCode) {
+            case 37:
+                // Left
+                --posX;
+                rotY += 0.1;
+                break;
+            case 65:
+            case 97:
+                if (angleWheel > -40)
+                    --angleWheel;
+                break;
+
+            case 38:
+            case 87:
+            case 119:
+                // Up
+                ++posY;
+                rotX += 0.1;
+                break;
+
+            case 39:
+                // Right
+                ++posX;
+                rotY += 0.1;
+                break;
+            case 68:
+            case 100:
+                if (angleWheel < 40)
+                    ++angleWheel;
+                break;
+
+            case 40:
+            case 83:
+            case 115:
+                // Down
+                --posY;
+                rotX += 0.1;
+                break;
+
+            case 32:
+                // Space
+                run = !run;
+                break;
+        }
+    };
+}
+
+var run = false;
+
+function timer() {
+    time += 10;
+}
+
+function updateMotion() {
+    if (run) {
+        posX = posX + cos(angleCar + angleWheel) + sin(angleWheel) * sin(angleCar);
+        posY = posY + sin(angleCar + angleWheel) - sin(angleWheel) * cos(angleCar);
+        angleCar = angleCar - asin((2.0 * sin(angleWheel)) / 6.0);
+        if (angleCar > 270)
+            angleCar -= 360;
+        else if (angleCar < -90)
+            angleCar += 360;
+        console.log(angleCar);
+    }
+}
+
+function cos(degree) {
+    return Math.cos(degreeToRadian(degree));
+}
+
+function sin(degree) {
+    return Math.sin(degreeToRadian(degree));
+}
+
+function asin(degree) {
+    return Math.asin(degreeToRadian(degree));
+}
+
+function degreeToRadian(degree) {
+    return degree * Math.PI / 180.0;
 }
 
 function animate() {
     requestAnimationFrame(animate);
+    car.position.set(posX, posY, 3);
+    car.rotation.set(rotX, rotY, 0);
     renderer.render(scene, camera);
     controls.update();
 }
