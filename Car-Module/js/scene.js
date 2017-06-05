@@ -5,7 +5,7 @@ var posX = 0.0,
     rotY = 0.0,
     angleWheel = 0.0,
     angleCar = 90.0,
-    speed = 10;
+    speed = 100;
 
 var run = false,
     firstPerson = false;
@@ -54,14 +54,24 @@ function init() {
     var axis = new THREE.Line(geometry, material);
     scene.add(axis);
 
+    // Draw End
+    var geometry = new THREE.CircleGeometry(0.6, 32);
+    var material = new THREE.MeshBasicMaterial({
+        color: 0xff0000
+    });
+    var circle = new THREE.Mesh(geometry, material);
+    circle.position.set(24.3, 37, 0);
+    scene.add(circle);
+
     // Draw Map
     var map = [
         [-6, 0, -6, 22, -1, 0],
         [-6, 22, 18, 22, 0, 1],
-        [18, 22, 18, 37, -1, 0],
+        [18, 22, 18, 50, -1, 0],
+        [18, 50, 30, 50, 0, -1],
         [6, 0, 6, 10, 1, 0],
         [6, 10, 30, 10, 0, -1],
-        [30, 10, 30, 37, 1, 0]
+        [30, 10, 30, 50, 1, 0]
     ];
     var wallHeight = 10;
     var wallWidth = 2;
@@ -197,13 +207,13 @@ function updateMotion() {
     if (run) {
         var phi = degreeToRadian(angleCar);
         var delta = degreeToRadian(angleWheel);
-        deltaX = Math.cos(phi + delta) + Math.sin(delta) * Math.sin(phi);
-        deltaY = Math.sin(phi + delta) - Math.sin(delta) * Math.cos(phi);
+        deltaX = (Math.cos(phi + delta) + Math.sin(delta) * Math.sin(phi)) * 0.1;
+        deltaY = (Math.sin(phi + delta) - Math.sin(delta) * Math.cos(phi)) * 0.1;
         posX = posX + deltaX;
         posY = posY + deltaY;
         rotY = rotY + 0.1 * deltaX;
         rotX = rotX - 0.1 * deltaY;
-        phi = phi - Math.asin((2.0 * Math.sin(delta)) / 6.0);
+        phi = phi - (Math.asin((2.0 * Math.sin(delta)) / 6.0)) * 0.1;
         angleCar = 180.0 * phi / Math.PI;
         if (angleCar > 270)
             angleCar -= 360;
@@ -223,7 +233,12 @@ function degreeToRadian(degree) {
 
 function animate() {
     requestAnimationFrame(animate);
-    var angle = degreeToRadian(angleCar - 90);
+    var angleFix = angleCar - 90
+    if (angleFix > 360)
+        angleFix -= 360;
+    else if (angleFix < 0)
+        angleFix += 360;
+    var angle = degreeToRadian(angleFix);
     car.position.set(posX, posY, 3);
     if (firstPerson) {
         car.rotation.set(0, 0, angle);
