@@ -6,9 +6,9 @@ var posX = 0.0,
     angleWheel = 0.0,
     angleCar = 90.0,
     speed = 100,
-    distanceCenter = 0,
-    distanceRight = 0,
-    distanceLeft = 0;
+    distanceCenter = 22,
+    distanceRight = 8.4853,
+    distanceLeft = 8.4853;
 
 var geometrySensorCenter, lineSensorCenter, geometrySensorLeft, lineSensorLeft, geometrySensorRight, lineSensorRight;
 
@@ -75,24 +75,25 @@ function init() {
     // Draw Sensor
     geometrySensorCenter = new THREE.Geometry();
     geometrySensorCenter.vertices.push(new THREE.Vector3(0, 0, 3));
-    geometrySensorCenter.vertices.push(new THREE.Vector3(0, 22, 3));
-    material = new THREE.LineBasicMaterial({
+    geometrySensorCenter.vertices.push(new THREE.Vector3(0, 0, 3));
+    geometrySensorCenter.computeLineDistances();
+    var materialSensor = new THREE.LineBasicMaterial({
         color: 0xff0000,
         linewidth: 5
     });
-    lineSensorCenter = new THREE.Line(geometrySensorCenter, material);
+    lineSensorCenter = new THREE.Line(geometrySensorCenter, materialSensor);
     scene.add(lineSensorCenter);
 
     geometrySensorRight = new THREE.Geometry();
     geometrySensorRight.vertices.push(new THREE.Vector3(0, 0, 3));
-    geometrySensorRight.vertices.push(new THREE.Vector3(6, 8.4853, 3));
-    lineSensorRight = new THREE.Line(geometrySensorRight, material);
+    geometrySensorRight.vertices.push(new THREE.Vector3(0, 0, 3));
+    lineSensorRight = new THREE.Line(geometrySensorRight, materialSensor);
     scene.add(lineSensorRight);
 
     geometrySensorLeft = new THREE.Geometry();
     geometrySensorLeft.vertices.push(new THREE.Vector3(0, 0, 3));
-    geometrySensorLeft.vertices.push(new THREE.Vector3(-6, 8.4853, 3));
-    lineSensorLeft = new THREE.Line(geometrySensorLeft, material);
+    geometrySensorLeft.vertices.push(new THREE.Vector3(0, 0, 3));
+    lineSensorLeft = new THREE.Line(geometrySensorLeft, materialSensor);
     scene.add(lineSensorLeft);
 
     // Draw Map
@@ -274,6 +275,17 @@ function updateMotion() {
         distanceCenter = getDistance(posX, posY, angleCar, 'center');
         distanceRight = getDistance(posX, posY, angleCar, 'right');
         distanceLeft = getDistance(posX, posY, angleCar, 'left');
+        if (distanceCenter == -1 || distanceRight == -1 || distanceLeft == -1) {
+            document.getElementById('success').style.display = 'none';
+            document.getElementById('failure').style.display = 'block';
+        } else if (posY >= 37 && posX <= 30 && posX >= 18) {
+            document.getElementById('success').style.display = 'block';
+            document.getElementById('failure').style.display = 'none';
+            run = false;
+        } else {
+            document.getElementById('success').style.display = 'none';
+            document.getElementById('failure').style.display = 'none';
+        }
         console.log('center = ' + distanceCenter + ', right = ' + distanceRight, ', left = ' + distanceLeft);
     }
     setTimeout(updateMotion, 1000 / speed);

@@ -24,8 +24,11 @@
 			<label for="firstPerson">First Person</label>
 			<input id="thirdPerson" type="radio" name="camera" checked="checked" oninput="updateCamera()" onchange="updateCamera()">
 			<label for="thirdPerson">Third Person</label>
-
 		</p>
+	</div>
+	<div class="result">
+		<p id="success" style="display:none">Success!!</p>
+		<p id="failure" style="display:none">Failure...</p>
 	</div>
 	<div class="instructions">
 		<p>Use the mouse to control the camera</p>

@@ -16,6 +16,16 @@ canvas {
     z-index: 100;
 }
 
+.result {
+    position: absolute;
+    display: block;
+    top: 10px;
+    text-align: center;
+    width: 100%;
+    z-index: 100;
+    font-size: 48px;
+}
+
 .instructions {
     position: absolute;
     display: block;
@@ -31,4 +41,12 @@ p {
 
 input[type=range] {
     margin-left: 10px;
+}
+
+#success {
+    color: #30ca42;
+}
+
+#failure {
+    color: #f44141;
 }
