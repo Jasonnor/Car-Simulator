@@ -16,6 +16,14 @@ canvas {
     z-index: 100;
 }
 
+.instructions {
+    position: absolute;
+    display: block;
+    right: 5px;
+    bottom: 5px;
+    z-index: 100;
+}
+
 p {
     margin: 10px;
     line-height: 25px;
