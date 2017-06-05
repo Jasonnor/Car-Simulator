@@ -18,4 +18,9 @@ canvas {
 
 p {
     margin: 10px;
+    line-height: 25px;
+}
+
+input[type=range] {
+    margin-left: 10px;
 }

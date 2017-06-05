@@ -4,7 +4,8 @@ var posX = 0.0,
     rotX = 0.0,
     rotY = 0.0,
     angleWheel = 0.0,
-    angleCar = 90.0;
+    angleCar = 90.0,
+    speed = 10;
 
 if (Detector.webgl) {
     init();
@@ -95,7 +96,7 @@ function init() {
         scene.add(car);
     });
 
-    setInterval(updateMotion, 100);
+    setTimeout(updateMotion, 1000 / speed);
 
     // Create an event listener that resizes the renderer with the browser window.
     window.addEventListener('resize', function () {
@@ -113,8 +114,10 @@ function init() {
                 break;
             case 65:
                 // A
-                if (angleWheel > -40)
+                if (angleWheel > -40) {
                     --angleWheel;
+                    readAngleWheel();
+                }
                 break;
 
             case 38:
@@ -131,8 +134,10 @@ function init() {
                 break;
             case 68:
                 // D
-                if (angleWheel < 40)
+                if (angleWheel < 40) {
                     ++angleWheel;
+                    readAngleWheel();
+                }
                 break;
 
             case 40:
@@ -151,12 +156,28 @@ function init() {
                 // Reset (R)
                 posX = posY = rotX = rotY = angleWheel = 0.0;
                 angleCar = 90.0;
+                readAngleWheel();
                 break;
         }
     };
 }
 
 var run = false;
+
+function updateSpeed() {
+    speed = document.getElementById('speedRange').value;
+    document.getElementById('speed').innerHTML = speed;
+}
+
+function updateAngleWheel() {
+    angleWheel = document.getElementById('angleWheelRange').value;
+    document.getElementById('angleWheel').innerHTML = parseFloat(angleWheel).toFixed(1);
+}
+
+function readAngleWheel() {
+    document.getElementById('angleWheelRange').value = angleWheel;
+    document.getElementById('angleWheel').innerHTML = parseFloat(angleWheel).toFixed(1);
+}
 
 function updateMotion() {
     if (run) {
@@ -175,9 +196,9 @@ function updateMotion() {
         console.log(angleCar);
         document.getElementById('x').innerHTML = posX.toFixed(4);
         document.getElementById('y').innerHTML = posY.toFixed(4);
-        document.getElementById('angleWheel').innerHTML = angleWheel.toFixed(1);
         document.getElementById('angleCar').innerHTML = angleCar.toFixed(1);
     }
+    setTimeout(updateMotion, 1000 / speed);
 }
 
 function degreeToRadian(degree) {
