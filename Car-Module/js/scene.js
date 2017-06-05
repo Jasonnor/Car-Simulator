@@ -45,22 +45,27 @@ function init() {
         color: 0x0000ff
     });
     var geometry = new THREE.Geometry();
-    geometry.vertices.push(new THREE.Vector3(-100, 0, 0));
-    geometry.vertices.push(new THREE.Vector3(100, 0, 0));
+    geometry.vertices.push(new THREE.Vector3(-500, 0, 0));
+    geometry.vertices.push(new THREE.Vector3(500, 0, 0));
     geometry.vertices.push(new THREE.Vector3(0, 0, 0));
-    geometry.vertices.push(new THREE.Vector3(0, 100, 0));
-    geometry.vertices.push(new THREE.Vector3(0, -100, 0));
+    geometry.vertices.push(new THREE.Vector3(0, 500, 0));
+    geometry.vertices.push(new THREE.Vector3(0, -500, 0));
     var axis = new THREE.Line(geometry, material);
     scene.add(axis);
 
     // Draw End
-    var geometry = new THREE.CircleGeometry(0.6, 32);
-    var material = new THREE.MeshBasicMaterial({
-        color: 0xff0000
+    var geometry = new THREE.Geometry();
+    geometry.vertices.push(new THREE.Vector3(18, 37, 0));
+    geometry.vertices.push(new THREE.Vector3(30, 37, 0));
+    geometry.computeLineDistances();
+    var material = new THREE.LineDashedMaterial({
+        color: 0xff0000,
+        dashSize: 0.5,
+        gapSize: 0.5,
+        linewidth: 2
     });
-    var circle = new THREE.Mesh(geometry, material);
-    circle.position.set(24.3, 37, 0);
-    scene.add(circle);
+    var mesh = new THREE.Line(geometry, material);
+    scene.add(mesh);
 
     // Draw Map
     var map = [
