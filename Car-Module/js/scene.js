@@ -24,7 +24,6 @@ function init() {
     // Create Camera
     camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 20000);
     camera.position.set(0, 0, 120);
-    camera.lookAt(scene.position);
     scene.add(camera);
 
     // Create Renderer
@@ -92,6 +91,22 @@ function init() {
             wall.rotateZ(radians);
             scene.add(wall);
         });
+    });
+
+    // Draw Floor  
+    var geometryFloor = new THREE.PlaneGeometry(1000, 1000, 1, 1);
+    loader = new THREE.TextureLoader();
+    loader.load('./Car-Module/src/texture_floor.jpg', function (texture) {
+        texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+        texture.offset.set(0, 0);
+        texture.repeat.set(200, 200);
+        material = new THREE.MeshBasicMaterial({
+            map: texture
+        });
+        var floor = new THREE.Mesh(geometryFloor, material);
+        floor.material.side = THREE.DoubleSide;
+        floor.position.set(0, 0, -0.5);
+        scene.add(floor);
     });
 
     // Create Car Sphere
@@ -219,7 +234,6 @@ function updateMotion() {
             angleCar -= 360;
         else if (angleCar < -90)
             angleCar += 360;
-        console.log(angleCar);
         document.getElementById('x').innerHTML = posX.toFixed(4);
         document.getElementById('y').innerHTML = posY.toFixed(4);
         document.getElementById('angleCar').innerHTML = angleCar.toFixed(1);
