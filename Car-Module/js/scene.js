@@ -161,27 +161,20 @@ function timer() {
 
 function updateMotion() {
     if (run) {
-        posX = posX + cos(angleCar + angleWheel) + sin(angleWheel) * sin(angleCar);
-        posY = posY + sin(angleCar + angleWheel) - sin(angleWheel) * cos(angleCar);
-        angleCar = angleCar - asin((2.0 * sin(angleWheel)) / 6.0);
+        var phi = degreeToRadian(angleCar);
+        var delta = degreeToRadian(angleWheel);
+        posX = posX + Math.cos(phi + delta) + Math.sin(delta) * Math.sin(phi);
+        rotY = rotY + 0.1 * Math.cos(phi + delta) + Math.sin(delta) * Math.sin(phi);
+        posY = posY + Math.sin(phi + delta) - Math.sin(delta) * Math.cos(phi);
+        rotX = rotX - 0.1 * Math.sin(phi + delta) - Math.sin(delta) * Math.cos(phi);
+        phi = phi - Math.asin((2.0 * Math.sin(delta)) / 6.0);
+        angleCar = 180.0 * phi / Math.PI;
         if (angleCar > 270)
             angleCar -= 360;
         else if (angleCar < -90)
             angleCar += 360;
         console.log(angleCar);
     }
-}
-
-function cos(degree) {
-    return Math.cos(degreeToRadian(degree));
-}
-
-function sin(degree) {
-    return Math.sin(degreeToRadian(degree));
-}
-
-function asin(degree) {
-    return Math.asin(degreeToRadian(degree));
 }
 
 function degreeToRadian(degree) {
