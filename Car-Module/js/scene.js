@@ -5,7 +5,12 @@ var posX = 0.0,
     rotY = 0.0,
     angleWheel = 0.0,
     angleCar = 90.0,
-    speed = 100;
+    speed = 100,
+    distanceCenter = 0,
+    distanceRight = 0,
+    distanceLeft = 0;
+
+var geometrySensorCenter, lineSensorCenter, geometrySensorLeft, lineSensorLeft, geometrySensorRight, lineSensorRight;
 
 var run = false,
     firstPerson = false;
@@ -41,15 +46,15 @@ function init() {
     controls = new THREE.OrbitControls(camera, renderer.domElement);
 
     // Draw Axis
-    var material = new THREE.LineBasicMaterial({
-        color: 0x0000ff
-    });
     var geometry = new THREE.Geometry();
     geometry.vertices.push(new THREE.Vector3(-500, 0, 0));
     geometry.vertices.push(new THREE.Vector3(500, 0, 0));
     geometry.vertices.push(new THREE.Vector3(0, 0, 0));
     geometry.vertices.push(new THREE.Vector3(0, 500, 0));
     geometry.vertices.push(new THREE.Vector3(0, -500, 0));
+    var material = new THREE.LineBasicMaterial({
+        color: 0x0000ff
+    });
     var axis = new THREE.Line(geometry, material);
     scene.add(axis);
 
@@ -67,13 +72,37 @@ function init() {
     var mesh = new THREE.Line(geometry, material);
     scene.add(mesh);
 
+    // Draw Sensor
+    geometrySensorCenter = new THREE.Geometry();
+    geometrySensorCenter.vertices.push(new THREE.Vector3(0, 0, 3));
+    geometrySensorCenter.vertices.push(new THREE.Vector3(0, 22, 3));
+    material = new THREE.LineBasicMaterial({
+        color: 0xff0000,
+        linewidth: 5
+    });
+    lineSensorCenter = new THREE.Line(geometrySensorCenter, material);
+    scene.add(lineSensorCenter);
+
+    geometrySensorRight = new THREE.Geometry();
+    geometrySensorRight.vertices.push(new THREE.Vector3(0, 0, 3));
+    geometrySensorRight.vertices.push(new THREE.Vector3(6, 8.4853, 3));
+    lineSensorRight = new THREE.Line(geometrySensorRight, material);
+    scene.add(lineSensorRight);
+
+    geometrySensorLeft = new THREE.Geometry();
+    geometrySensorLeft.vertices.push(new THREE.Vector3(0, 0, 3));
+    geometrySensorLeft.vertices.push(new THREE.Vector3(-6, 8.4853, 3));
+    lineSensorLeft = new THREE.Line(geometrySensorLeft, material);
+    scene.add(lineSensorLeft);
+
     // Draw Map
     var map = [
-        [-6, 0, -6, 22, -1, 0],
+        [-6, -13, 6, -13, 0, 1],
+        [-6, -13, -6, 22, -1, 0],
         [-6, 22, 18, 22, 0, 1],
         [18, 22, 18, 50, -1, 0],
         [18, 50, 30, 50, 0, -1],
-        [6, 0, 6, 10, 1, 0],
+        [6, -13, 6, 10, 1, 0],
         [6, 10, 30, 10, 0, -1],
         [30, 10, 30, 50, 1, 0]
     ];
@@ -242,6 +271,10 @@ function updateMotion() {
         document.getElementById('x').innerHTML = posX.toFixed(4);
         document.getElementById('y').innerHTML = posY.toFixed(4);
         document.getElementById('angleCar').innerHTML = angleCar.toFixed(1);
+        distanceCenter = getDistance(posX, posY, angleCar, 'center');
+        distanceRight = getDistance(posX, posY, angleCar, 'right');
+        distanceLeft = getDistance(posX, posY, angleCar, 'left');
+        console.log('center = ' + distanceCenter + ', right = ' + distanceRight, ', left = ' + distanceLeft);
     }
     setTimeout(updateMotion, 1000 / speed);
 }
@@ -272,5 +305,23 @@ function animate() {
         car.rotation.set(rotX, rotY, 0);
         controls.update();
     }
+    geometrySensorCenter.vertices[0].x = posX;
+    geometrySensorCenter.vertices[0].y = posY;
+    geometrySensorCenter.vertices[1].x = posX + distanceCenter * Math.cos(degreeToRadian(angleCar));
+    geometrySensorCenter.vertices[1].y = posY + distanceCenter * Math.sin(degreeToRadian(angleCar));
+    lineSensorCenter.geometry.verticesNeedUpdate = true;
+
+    geometrySensorRight.vertices[0].x = posX;
+    geometrySensorRight.vertices[0].y = posY;
+    geometrySensorRight.vertices[1].x = posX + distanceRight * Math.cos(degreeToRadian(angleCar - 45));
+    geometrySensorRight.vertices[1].y = posY + distanceRight * Math.sin(degreeToRadian(angleCar - 45));
+    lineSensorRight.geometry.verticesNeedUpdate = true;
+
+    geometrySensorLeft.vertices[0].x = posX;
+    geometrySensorLeft.vertices[0].y = posY;
+    geometrySensorLeft.vertices[1].x = posX + distanceLeft * Math.cos(degreeToRadian(angleCar + 45));
+    geometrySensorLeft.vertices[1].y = posY + distanceLeft * Math.sin(degreeToRadian(angleCar + 45));
+    lineSensorLeft.geometry.verticesNeedUpdate = true;
+
     renderer.render(scene, camera);
 }
