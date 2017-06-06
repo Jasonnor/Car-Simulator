@@ -3,10 +3,12 @@ var fuzzyRun = false;
 function fuzzyStart() {
     fuzzyRun = !fuzzyRun;
     if (fuzzyRun) {
-        document.getElementById('fuzzyStart').innerHTML = 'Stop';
-        run = true;
-    } else
-        document.getElementById('fuzzyStart').innerHTML = 'Start';
+        document.getElementById('fuzzyStart').innerHTML = 'Stop (F)';
+        startMotion('start');
+    } else {
+        document.getElementById('fuzzyStart').innerHTML = 'Start (F)';
+        startMotion('stop');
+    }
 }
 
 function fuzzyControl() {

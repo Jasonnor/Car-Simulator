@@ -45,7 +45,7 @@ function updateMotion() {
         } else if (posY >= 37 && posX <= 30 && posX >= 18) {
             document.getElementById('success').style.display = 'block';
             document.getElementById('failure').style.display = 'none';
-            run = false;
+            startMotion('stop');
         } else {
             document.getElementById('success').style.display = 'none';
             document.getElementById('failure').style.display = 'none';
@@ -54,6 +54,34 @@ function updateMotion() {
     if (fuzzyRun)
         fuzzyControl();
     setTimeout(updateMotion, 1000 / speed);
+}
+
+function startMotion(parameter) {
+    if (parameter == 'start')
+        run = true;
+    else if (parameter == 'stop')
+        run = false;
+    else
+        run = !run;
+    if (run) {
+        document.getElementById('startMotion').innerHTML = 'Stop Motion(G)';
+        run = true;
+    } else {
+        document.getElementById('startMotion').innerHTML = 'Start Motion(G)';
+        run = false;
+    }
+}
+
+function reset() {
+    posX = posY = rotX = rotY = angleWheel = 0.0;
+    angleCar = 90.0;
+    distanceCenter = 22;
+    distanceRight = 8.4853;
+    distanceLeft = 8.4853;
+    failure = false;
+    document.getElementById('success').style.display = 'none';
+    document.getElementById('failure').style.display = 'none';
+    readAngleWheel();
 }
 
 
@@ -99,22 +127,29 @@ document.onkeydown = function (e) {
             rotX += 0.1;
             break;
 
-        case 32:
-            // Start/Stop (space)
-            run = !run;
+        case 49:
+            // First Person Camera (1)
+            document.getElementById('firstPerson').click();
+            break;
+
+        case 51:
+            // Third Person Camera (3)
+            document.getElementById('thirdPerson').click();
+            break;
+
+        case 70:
+            // Fuzzy Control (F)
+            fuzzyStart();
+            break;
+
+        case 71:
+            // Start/Stop (G)
+            startMotion();
             break;
 
         case 82:
             // Reset (R)
-            posX = posY = rotX = rotY = angleWheel = 0.0;
-            angleCar = 90.0;
-            distanceCenter = 22;
-            distanceRight = 8.4853;
-            distanceLeft = 8.4853;
-            failure = false;
-            document.getElementById('success').style.display = 'none';
-            document.getElementById('failure').style.display = 'none';
-            readAngleWheel();
+            reset();
             break;
     }
 };

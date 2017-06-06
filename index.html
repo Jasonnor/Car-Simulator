@@ -16,7 +16,11 @@
 		<p>Sensor Left: <span id="distanceLeft">8.4853</span></p>
 	</div>
 	<div class="control">
-		<p>Steering Wheel Angle:
+		<p>
+			<button id="startMotion" onclick="startMotion()">Start Motion (G)</button>
+			<button id="reset" onclick="reset()">Reset (R)</button>
+		</p>
+		<p>Steering Wheel Angle (A/D):
 			<span id="angleWheel">0.0</span>
 			<input id="angleWheelRange" type="range" min="-40.0" max="40.0" value="0.0" step="0.1" oninput="updateAngleWheel()" onchange="updateAngleWheel()">
 		</p>
@@ -26,12 +30,12 @@
 		</p>
 		<p>Camera:
 			<input id="firstPerson" type="radio" name="camera" oninput="updateCamera()" onchange="updateCamera()">
-			<label for="firstPerson">First Person</label>
+			<label for="firstPerson">First Person (1)</label>
 			<input id="thirdPerson" type="radio" name="camera" checked="checked" oninput="updateCamera()" onchange="updateCamera()">
-			<label for="thirdPerson">Third Person</label>
+			<label for="thirdPerson">Third Person (3)</label>
 		</p>
 		<p>Fuzzy Control System:
-			<button id="fuzzyStart" onclick="fuzzyStart()">Start</button>
+			<button id="fuzzyStart" onclick="fuzzyStart()">Start (F)</button>
 		</p>
 	</div>
 	<div class="result">
@@ -40,7 +44,7 @@
 	</div>
 	<div class="instructions">
 		<p>Use the mouse to control the camera</p>
-		<p>Press Space to move</p>
+		<p>Press G to start motion</p>
 		<p>Press A/D to control the steering wheel</p>
 		<p>Press ↑/↓/←/→ to adjust the position</p>
 		<p>Press R to reset</p>
