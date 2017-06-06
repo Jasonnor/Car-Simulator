@@ -11,11 +11,11 @@
 	<div class="status">
 		<p>Position: (<span id="x">0.0000</span>, <span id="y">0.0000</span>)</p>
 		<p>Car Horizontal Axis Angle: <span id="angleCar">90.0</span></p>
-		<p>Car Sensor Center:
-			<span id="distanceCenter">22.0000</span>, Right:
-			<span id="distanceRight">8.4853</span>, Left:
-			<span id="distanceLeft">8.4853</span>
-		</p>
+		<p>Sensor Center: <span id="distanceCenter">22.0000</span></p>
+		<p>Sensor Right: <span id="distanceRight">8.4853</span></p>
+		<p>Sensor Left: <span id="distanceLeft">8.4853</span></p>
+	</div>
+	<div class="control">
 		<p>Steering Wheel Angle:
 			<span id="angleWheel">0.0</span>
 			<input id="angleWheelRange" type="range" min="-40.0" max="40.0" value="0.0" step="0.1" oninput="updateAngleWheel()" onchange="updateAngleWheel()">
@@ -48,6 +48,7 @@
 	<script src="./Car-Module/js/scene.js"></script>
 	<script src="./Car-Module/js/sensor.js"></script>
 	<script src="./Car-Module/js/car.js"></script>
+	<script src="./Fuzzy-Control-System/js/fuzzy.js"></script>
 </body>
 
 </html>
