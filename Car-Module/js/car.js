@@ -50,6 +50,18 @@ function updateMotion() {
             document.getElementById('success').style.display = 'none';
             document.getElementById('failure').style.display = 'none';
         }
+        document.getElementById('data4D').value +=
+            distanceCenter.toFixed(7) + ' ' +
+            distanceRight.toFixed(7) + ' ' +
+            distanceLeft.toFixed(7) + ' ' +
+            angleWheel.toFixed(7) + '\n';
+        document.getElementById('data6D').value +=
+            posX.toFixed(7) + ' ' +
+            posY.toFixed(7) + ' ' +
+            distanceCenter.toFixed(7) + ' ' +
+            distanceRight.toFixed(7) + ' ' +
+            distanceLeft.toFixed(7) + ' ' +
+            angleWheel.toFixed(7) + '\n';
     }
     if (fuzzyRun)
         fuzzyControl();
@@ -82,6 +94,8 @@ function reset() {
     failure = false;
     document.getElementById('success').style.display = 'none';
     document.getElementById('failure').style.display = 'none';
+    document.getElementById('data4D').value = '';
+    document.getElementById('data6D').value = '';
     readAngleWheel();
 }
 

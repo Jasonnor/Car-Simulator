@@ -37,6 +37,12 @@
 		<p>Fuzzy Control System:
 			<button id="fuzzyStart" onclick="fuzzyStart()">Start (F)</button>
 		</p>
+		<p>
+			<textarea id="data4D" style="display:none"></textarea>
+			<textarea id="data6D" style="display:none"></textarea>
+			<button id="saveFile4D" onclick="saveFile4D()">Save the file (4D)</button>
+			<button id="saveFile6D" onclick="saveFile6D()">Save the file (6D)</button>
+		</p>
 	</div>
 	<div class="result">
 		<p id="success" style="display:none">Success!!</p>
@@ -54,10 +60,12 @@
 	<script src="./Car-Module/js/lib/three.min.js"></script>
 	<script src="./Car-Module/js/lib/Detector.js"></script>
 	<script src="./Car-Module/js/lib/OrbitControls.js"></script>
+	<script src="./Car-Module/js/lib/FileSaver.min.js"></script>
 	<script src="./Fuzzy-Control-System/js/fuzzy.js"></script>
 	<script src="./Car-Module/js/scene.js"></script>
 	<script src="./Car-Module/js/sensor.js"></script>
 	<script src="./Car-Module/js/car.js"></script>
+	<script src="./Car-Module/js/download.js"></script>
 </body>
 
 </html>
