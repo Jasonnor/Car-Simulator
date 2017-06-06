@@ -13,7 +13,7 @@ function fuzzyStart() {
 
 function fuzzyControl() {
     var alpha = new Array();
-    // Center Small, Right Medium, Right Large, Left Medium, Left Large
+    // Center Small, Right Medium, Right Large, Left Medium, Left Large, Center Large & Right Small, Center Large & Left Small
     var functionValue = [60, 40, 80, -40, -80, 30, -30];
     alpha.push(fuzzyRulesCenter(distanceCenter, 'Small'));
     alpha.push(fuzzyRulesRight(distanceRight, 'Medium'));

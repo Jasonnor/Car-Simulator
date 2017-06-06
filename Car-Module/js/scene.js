@@ -39,12 +39,12 @@ function init() {
     renderer.setClearColor(0xffffff, 1);
     document.body.appendChild(renderer.domElement);
 
-    // Create a light, set its position, and add it to the scene.
+    // Create a light, set its position, and add it to the scene
     var light = new THREE.PointLight(0x000000);
     light.position.set(-100, 200, 100);
     scene.add(light);
 
-    // Add OrbitControls for panning around with the mouse.
+    // Add OrbitControls for panning around with the mouse
     controls = new THREE.OrbitControls(camera, renderer.domElement);
 
     // Draw Axis
