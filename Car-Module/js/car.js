@@ -51,6 +51,8 @@ function updateMotion() {
             document.getElementById('failure').style.display = 'none';
         }
     }
+    if (fuzzyRun)
+        fuzzyControl();
     setTimeout(updateMotion, 1000 / speed);
 }
 

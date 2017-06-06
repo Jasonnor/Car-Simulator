@@ -30,6 +30,9 @@
 			<input id="thirdPerson" type="radio" name="camera" checked="checked" oninput="updateCamera()" onchange="updateCamera()">
 			<label for="thirdPerson">Third Person</label>
 		</p>
+		<p>Fuzzy Control System:
+			<button id="fuzzyStart" onclick="fuzzyStart()">Start</button>
+		</p>
 	</div>
 	<div class="result">
 		<p id="success" style="display:none">Success!!</p>
@@ -45,10 +48,10 @@
 	<script src="./Car-Module/js/lib/three.min.js"></script>
 	<script src="./Car-Module/js/lib/Detector.js"></script>
 	<script src="./Car-Module/js/lib/OrbitControls.js"></script>
+	<script src="./Fuzzy-Control-System/js/fuzzy.js"></script>
 	<script src="./Car-Module/js/scene.js"></script>
 	<script src="./Car-Module/js/sensor.js"></script>
 	<script src="./Car-Module/js/car.js"></script>
-	<script src="./Fuzzy-Control-System/js/fuzzy.js"></script>
 </body>
 
 </html>
