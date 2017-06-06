@@ -11,6 +11,7 @@ var posX = 0.0,
     distanceLeft = 8.4853;
 
 var geometrySensorCenter, lineSensorCenter, geometrySensorLeft, lineSensorLeft, geometrySensorRight, lineSensorRight;
+var geometryTrajectory, trajectory, drawCount = 0;
 
 var run = false,
     firstPerson = false,
@@ -77,7 +78,6 @@ function init() {
     geometrySensorCenter = new THREE.Geometry();
     geometrySensorCenter.vertices.push(new THREE.Vector3(0, 0, 3));
     geometrySensorCenter.vertices.push(new THREE.Vector3(0, 0, 3));
-    geometrySensorCenter.computeLineDistances();
     var materialSensor = new THREE.LineBasicMaterial({
         color: 0xff0000,
         linewidth: 5
@@ -161,6 +161,18 @@ function init() {
         scene.add(car);
     });
 
+    //Draw Move Trajectory
+    var positions = new Float32Array(30000);
+    geometryTrajectory = new THREE.BufferGeometry();
+    geometryTrajectory.addAttribute('position', new THREE.BufferAttribute(positions, 3));
+    geometryTrajectory.setDrawRange(0, Math.abs(drawCount / 3));
+    var material = new THREE.MeshBasicMaterial({
+        color: 0x000000,
+        linewidth: 4
+    });
+    trajectory = new THREE.Line(geometryTrajectory, material);
+    scene.add(trajectory);
+
     // Create an event listener that resizes the renderer with the browser window.
     window.addEventListener('resize', function () {
         renderer.setSize(window.innerWidth, window.innerHeight);
@@ -207,6 +219,7 @@ function animate() {
         car.rotation.set(rotX, rotY, 0);
         controls.update();
     }
+    // Draw Sensor
     geometrySensorCenter.vertices[0].x = posX;
     geometrySensorCenter.vertices[0].y = posY;
     geometrySensorCenter.vertices[1].x = posX + distanceCenter * Math.cos(degreeToRadian(angleCar));
@@ -224,6 +237,14 @@ function animate() {
     geometrySensorLeft.vertices[1].x = posX + distanceLeft * Math.cos(degreeToRadian(angleCar + 45));
     geometrySensorLeft.vertices[1].y = posY + distanceLeft * Math.sin(degreeToRadian(angleCar + 45));
     lineSensorLeft.geometry.verticesNeedUpdate = true;
+
+    // Draw Trajectory
+    var positions = trajectory.geometry.attributes.position.array;
+    positions[drawCount++] = posX;
+    positions[drawCount++] = posY;
+    positions[drawCount++] = 0;
+    trajectory.geometry.setDrawRange(0, Math.abs(drawCount / 3));
+    trajectory.geometry.attributes.position.needsUpdate = true;
 
     renderer.render(scene, camera);
 }

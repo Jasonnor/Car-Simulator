@@ -64,10 +64,10 @@ function startMotion(parameter) {
     else
         run = !run;
     if (run) {
-        document.getElementById('startMotion').innerHTML = 'Stop Motion(G)';
+        document.getElementById('startMotion').innerHTML = 'Stop Motion (Space / G)';
         run = true;
     } else {
-        document.getElementById('startMotion').innerHTML = 'Start Motion(G)';
+        document.getElementById('startMotion').innerHTML = 'Start Motion (Space / G)';
         run = false;
     }
 }
@@ -78,6 +78,7 @@ function reset() {
     distanceCenter = 22;
     distanceRight = 8.4853;
     distanceLeft = 8.4853;
+    drawCount = 0;
     failure = false;
     document.getElementById('success').style.display = 'none';
     document.getElementById('failure').style.display = 'none';
@@ -142,8 +143,9 @@ document.onkeydown = function (e) {
             fuzzyStart();
             break;
 
+        case 32:
         case 71:
-            // Start/Stop (G)
+            // Start/Stop (Space & G)
             startMotion();
             break;
 
