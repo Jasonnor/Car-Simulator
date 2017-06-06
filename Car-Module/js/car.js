@@ -54,14 +54,14 @@ function updateMotion() {
             distanceCenter.toFixed(7) + ' ' +
             distanceRight.toFixed(7) + ' ' +
             distanceLeft.toFixed(7) + ' ' +
-            angleWheel.toFixed(7) + '\n';
+            parseFloat(angleWheel).toFixed(7) + '\n';
         document.getElementById('data6D').value +=
             posX.toFixed(7) + ' ' +
             posY.toFixed(7) + ' ' +
             distanceCenter.toFixed(7) + ' ' +
             distanceRight.toFixed(7) + ' ' +
             distanceLeft.toFixed(7) + ' ' +
-            angleWheel.toFixed(7) + '\n';
+            parseFloat(angleWheel).toFixed(7) + '\n';
     }
     if (fuzzyRun)
         fuzzyControl();
