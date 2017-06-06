@@ -13,7 +13,8 @@ var posX = 0.0,
 var geometrySensorCenter, lineSensorCenter, geometrySensorLeft, lineSensorLeft, geometrySensorRight, lineSensorRight;
 
 var run = false,
-    firstPerson = false;
+    firstPerson = false,
+    failure = false;
 
 if (Detector.webgl) {
     init();
@@ -220,6 +221,12 @@ function init() {
                 // Reset (R)
                 posX = posY = rotX = rotY = angleWheel = 0.0;
                 angleCar = 90.0;
+                distanceCenter = 22;
+                distanceRight = 8.4853;
+                distanceLeft = 8.4853;
+                failure = false;
+                document.getElementById('success').style.display = 'none';
+                document.getElementById('failure').style.display = 'none';
                 readAngleWheel();
                 break;
         }
@@ -269,15 +276,19 @@ function updateMotion() {
             angleCar -= 360;
         else if (angleCar < -90)
             angleCar += 360;
-        document.getElementById('x').innerHTML = posX.toFixed(4);
-        document.getElementById('y').innerHTML = posY.toFixed(4);
-        document.getElementById('angleCar').innerHTML = angleCar.toFixed(1);
         distanceCenter = getDistance(posX, posY, angleCar, 'center');
         distanceRight = getDistance(posX, posY, angleCar, 'right');
         distanceLeft = getDistance(posX, posY, angleCar, 'left');
-        if (distanceCenter == -1 || distanceRight == -1 || distanceLeft == -1) {
+        document.getElementById('x').innerHTML = posX.toFixed(4);
+        document.getElementById('y').innerHTML = posY.toFixed(4);
+        document.getElementById('angleCar').innerHTML = angleCar.toFixed(1);
+        document.getElementById('distanceCenter').innerHTML = distanceCenter.toFixed(4);
+        document.getElementById('distanceRight').innerHTML = distanceRight.toFixed(4);
+        document.getElementById('distanceLeft').innerHTML = distanceLeft.toFixed(4);
+        if (failure || distanceCenter == -1 || distanceRight == -1 || distanceLeft == -1) {
             document.getElementById('success').style.display = 'none';
             document.getElementById('failure').style.display = 'block';
+            failure = true;
         } else if (posY >= 37 && posX <= 30 && posX >= 18) {
             document.getElementById('success').style.display = 'block';
             document.getElementById('failure').style.display = 'none';
@@ -286,7 +297,6 @@ function updateMotion() {
             document.getElementById('success').style.display = 'none';
             document.getElementById('failure').style.display = 'none';
         }
-        console.log('center = ' + distanceCenter + ', right = ' + distanceRight, ', left = ' + distanceLeft);
     }
     setTimeout(updateMotion, 1000 / speed);
 }
