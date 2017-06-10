@@ -65,21 +65,27 @@ function updateMotion() {
     }
     if (fuzzyRun)
         fuzzyControl();
+    else if (geneticRun)
+        geneticAlgorithm();
     setTimeout(updateMotion, 1000 / speed);
 }
 
 function startMotion(parameter) {
-    if (parameter == 'start')
-        run = true;
-    else if (parameter == 'stop')
-        run = false;
-    else
-        run = !run;
+    switch (parameter) {
+        case 'start':
+            run = true;
+            break;
+        case 'stop':
+            run = false;
+            break;
+        default:
+            run = !run;
+    }
     if (run) {
-        document.getElementById('startMotion').innerHTML = 'Stop Motion (Space / G)';
+        document.getElementById('startMotion').innerHTML = 'Stop Motion (Space / M)';
         run = true;
     } else {
-        document.getElementById('startMotion').innerHTML = 'Start Motion (Space / G)';
+        document.getElementById('startMotion').innerHTML = 'Start Motion (Space / M)';
         run = false;
     }
 }
@@ -157,9 +163,14 @@ document.onkeydown = function (e) {
             fuzzyStart();
             break;
 
-        case 32:
         case 71:
-            // Start/Stop (Space & G)
+            // Genetic Algorithm (G)
+            geneticStart();
+            break;
+
+        case 32:
+        case 77:
+            // Start/Stop (Space & M)
             startMotion();
             break;
 

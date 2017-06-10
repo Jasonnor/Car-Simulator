@@ -1,7 +1,16 @@
 var fuzzyRun = false;
 
-function fuzzyStart() {
-    fuzzyRun = !fuzzyRun;
+function fuzzyStart(parameter) {
+    switch (parameter) {
+        case 'start':
+            fuzzyRun = true;
+            break;
+        case 'stop':
+            fuzzyRun = false;
+            break;
+        default:
+            fuzzyRun = !fuzzyRun;
+    }
     if (fuzzyRun) {
         document.getElementById('fuzzyStart').innerHTML = 'Stop (F)';
         startMotion('start');

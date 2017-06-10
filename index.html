@@ -17,7 +17,7 @@
 	</div>
 	<div class="control">
 		<p>
-			<button id="startMotion" onclick="startMotion()">Start Motion (Space / G)</button>
+			<button id="startMotion" onclick="startMotion()">Start Motion (Space / M)</button>
 			<button id="reset" onclick="reset()">Reset (R)</button>
 		</p>
 		<p>Steering Wheel Angle (A/D):
@@ -36,6 +36,9 @@
 		</p>
 		<p>Fuzzy Control System:
 			<button id="fuzzyStart" onclick="fuzzyStart()">Start (F)</button>
+		</p>
+		<p>Genetic Algorithm:
+			<button id="geneticStart" onclick="geneticStart()">Start (G)</button>
 		</p>
 		<p>
 			<textarea id="data4D" style="display:none"></textarea>
@@ -62,6 +65,8 @@
 	<script src="./Car-Module/js/lib/OrbitControls.js"></script>
 	<script src="./Car-Module/js/lib/FileSaver.min.js"></script>
 	<script src="./Fuzzy-Control-System/js/fuzzy.js"></script>
+	<script src="./Genetic-Algorithm/js/genetic.js"></script>
+	<script src="./Genetic-Algorithm/js/RBF.js"></script>
 	<script src="./Car-Module/js/scene.js"></script>
 	<script src="./Car-Module/js/sensor.js"></script>
 	<script src="./Car-Module/js/car.js"></script>
