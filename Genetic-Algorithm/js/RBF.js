@@ -1,12 +1,26 @@
-function getOutput() {
-    var output = theta,
-        value;
-    for (var i = 0; i < numberOfNeurons; i++) {
-        value = W[i] * Math.exp(-getDistance(x, M[i]) / (2 * sigma[i] * sigma[i]));
-        output += value;
+var RBF = {
+    numberOfNeurons: 3,
+    dimension: 3,
+    createNew: function () {
+        var rbf = {};
+        rbf.theta = 0;
+        rbf.W = [];
+        rbf.M = [];
+        rbf.sigma = [];
+        rbf.getOutput = function (x) {
+            var output = this.theta,
+                value;
+            for (var i = 0; i < RBF.numberOfNeurons; i++) {
+                value = this.W[i] * Math.exp(-getDistance(x, this.M[i]) / (2 * this.sigma[i] * this.sigma[i]));
+                output += value;
+            }
+            return output;
+        };
+        for (var i = 0; i < RBF.numberOfNeurons; i++)
+            rbf.M[i] = [];
+        return rbf;
     }
-    return output;
-}
+};
 
 function getDistance(x, y) {
     var distance = 0;
