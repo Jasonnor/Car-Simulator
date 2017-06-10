@@ -43,6 +43,29 @@ var Gene = {
             }
             this.normalization();
         };
+        gene.getFitness = function (yD, x) {
+            var value = 0;
+            for (var i = 0; i < yD.length; i++) {
+                var fX = this.rbf.getOutput(x[i]);
+                value += Math.pow(yD[i] - fX, 2);
+            }
+            value = value / 2.0;
+            return value;
+        };
+        gene.getVectorTypeName = function () {
+            var typeName = [];
+            typeName[0] = "theta";
+            for (var i = 1; i <= Gene.numberOfNeurons; i++) {
+                typeName[i] = "w" + i;
+            }
+            for (var i = 1 + Gene.numberOfNeurons, j = 0; i < 1 + Gene.numberOfNeurons + Gene.numberOfNeurons * Gene.dimension; i++, j++) {
+                typeName[i] = "m" + (j / Gene.dimension + 1) + "," + (j % Gene.dimension + 1);
+            }
+            for (var i = 1 + Gene.numberOfNeurons + Gene.numberOfNeurons * Gene.dimension, j = 0; i < 1 + Gene.numberOfNeurons + Gene.numberOfNeurons * Gene.dimension + Gene.numberOfNeurons; i++, j++) {
+                typeName[i] = "sigma" + (j + 1);
+            }
+            return typeName;
+        };
         return gene;
     }
 };
