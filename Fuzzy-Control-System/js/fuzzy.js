@@ -13,6 +13,7 @@ function fuzzyStart(parameter) {
     }
     if (fuzzyRun) {
         document.getElementById('fuzzyStart').innerHTML = 'Stop (F)';
+        geneticStart('stop');
         startMotion('start');
     } else {
         document.getElementById('fuzzyStart').innerHTML = 'Start (F)';
