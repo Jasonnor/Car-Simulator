@@ -43,7 +43,7 @@ function geneticTrain() {
         genes[i].randomBuild();
     }
     // Read data
-    var rawData = readTextFile('./Fuzzy-Control-System/train4D.txt');
+    var rawData = readTextFile('./Genetic-Algorithm/dataset-4D/train_5.txt');
     for (var i = 0; i < rawData.length; i++) {
         if (rawData[i] !== '') {
             input[i] = [];
