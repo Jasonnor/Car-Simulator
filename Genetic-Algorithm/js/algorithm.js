@@ -32,7 +32,12 @@ function geneticStart(parameter) {
 }
 
 function geneticAlgorithm() {
-    var output = bestGene.rbf.getOutput([distanceCenter, distanceRight, distanceLeft]);
+    var output = 0;
+    if (dimension == 3) {
+        output = bestGene.rbf.getOutput([distanceCenter, distanceRight, distanceLeft]);
+    } else if (dimension == 5) {
+        output = bestGene.rbf.getOutput([posX, posY, distanceCenter, distanceRight, distanceLeft]);
+    }
     angleWheel = (output * 80.0) - 40;
     readAngleWheel();
 }
@@ -47,7 +52,7 @@ function geneticTrain() {
         genes[i].randomBuild();
     }
     // Read data
-    var rawData = readTextFile('./Genetic-Algorithm/dataset-4D/train_5.txt');
+    var rawData = readTextFile('./Genetic-Algorithm/dataset-6D/train_5.txt');
     for (var i = 0; i < rawData.length; i++) {
         if (rawData[i] !== '') {
             input[i] = [];
@@ -67,6 +72,7 @@ function geneticTrain() {
                 minFitness = temp;
                 bestGene = genes[i].clone();
                 console.log(minFitness);
+                document.getElementById('lossRate').innerHTML = minFitness.toFixed(4);;
             }
         }
         if (minFitness < 0.01)
@@ -107,6 +113,7 @@ function geneticTrain() {
             minFitness = temp;
             bestGene = genes[i].clone();
             console.log(minFitness);
+            document.getElementById('lossRate').innerHTML = minFitness.toFixed(4);;
         }
     }
     bestGene.getFitness(output, input);

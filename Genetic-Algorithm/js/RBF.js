@@ -1,6 +1,6 @@
+var numberOfNeurons = 8,
+    dimension = 5;
 var RBF = {
-    numberOfNeurons: 3,
-    dimension: 3,
     createNew: function () {
         var rbf = {};
         rbf.theta = 0;
@@ -10,13 +10,13 @@ var RBF = {
         rbf.getOutput = function (x) {
             var output = this.theta,
                 value;
-            for (var i = 0; i < RBF.numberOfNeurons; i++) {
+            for (var i = 0; i < numberOfNeurons; i++) {
                 value = this.W[i] * Math.exp(-getVectorDistance(x, this.M[i]) / (2 * this.sigma[i] * this.sigma[i]));
                 output += value;
             }
             return output;
         };
-        for (var i = 0; i < RBF.numberOfNeurons; i++)
+        for (var i = 0; i < numberOfNeurons; i++)
             rbf.M[i] = [];
         return rbf;
     }
