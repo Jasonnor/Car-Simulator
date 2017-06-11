@@ -75,7 +75,6 @@ function updateMutationRate(value) {
 
 function geneticTrain() {
     document.getElementById('geneticStart').disabled = true;
-    document.getElementById('lossRate').innerHTML = 'Training ...';
     geneticStart('stop');
     fuzzyStart('stop');
     geneticReset();
