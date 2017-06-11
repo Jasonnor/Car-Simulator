@@ -32,11 +32,15 @@ function geneticStart(parameter) {
 }
 
 function geneticAlgorithm() {
-    
+    var output = bestGene.rbf.getOutput([distanceCenter, distanceRight, distanceLeft]);
+    angleWheel = (output * 80.0) - 40;
+    readAngleWheel();
 }
 
 function geneticTrain() {
     document.getElementById('geneticStart').disabled = true;
+    geneticStart('stop');
+    fuzzyStart('stop');
     geneticReset();
     for (var i = 0; i < populationSize; i++) {
         genes.push(Gene.createNew());
@@ -114,6 +118,7 @@ function geneticReset() {
     output = [];
     genes = [];
     newGenes = [];
+    bestGene = null;
 }
 
 function geneMating(x, y, geneX, geneY) {
