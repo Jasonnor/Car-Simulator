@@ -11,7 +11,7 @@ var RBF = {
             var output = this.theta,
                 value;
             for (var i = 0; i < RBF.numberOfNeurons; i++) {
-                value = this.W[i] * Math.exp(-getDistance(x, this.M[i]) / (2 * this.sigma[i] * this.sigma[i]));
+                value = this.W[i] * Math.exp(-getVectorDistance(x, this.M[i]) / (2 * this.sigma[i] * this.sigma[i]));
                 output += value;
             }
             return output;
@@ -22,7 +22,7 @@ var RBF = {
     }
 };
 
-function getDistance(x, y) {
+function getVectorDistance(x, y) {
     var distance = 0;
     for (var i = 0; i < x.length; i++) {
         distance += (x[i] - y[i]) * (x[i] - y[i]);
