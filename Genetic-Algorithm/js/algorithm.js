@@ -31,9 +31,12 @@ function geneticStart(parameter) {
     }
 }
 
-function geneticAlgorithm() {}
+function geneticAlgorithm() {
+    
+}
 
 function geneticTrain() {
+    document.getElementById('geneticStart').disabled = true;
     geneticReset();
     for (var i = 0; i < populationSize; i++) {
         genes.push(Gene.createNew());
@@ -52,16 +55,16 @@ function geneticTrain() {
         }
     }
     var minFitness = 1000000;
-    for (var iterations = 0; iterations < 5; iterations++) {
+    for (var iterations = 0; iterations < 500; iterations++) {
         // Calcuate fitness
         for (var i = 0; i < genes.length; i++) {
             var temp = genes[i].getFitness(output, input);
             if (temp < minFitness) {
                 minFitness = temp;
-                bestGene = genes[i];
+                bestGene = genes[i].clone();
+                console.log(minFitness);
             }
         }
-        console.log(minFitness);
         if (minFitness < 0.01)
             break;
         // Copy gene to mating pool by tournament selection
@@ -98,10 +101,12 @@ function geneticTrain() {
         var temp = genes[i].getFitness(output, input);
         if (temp < minFitness) {
             minFitness = temp;
-            bestGene = genes[i];
+            bestGene = genes[i].clone();
+            console.log(minFitness);
         }
     }
-    console.log(minFitness);
+    bestGene.getFitness(output, input);
+    document.getElementById('geneticStart').disabled = false;
 }
 
 function geneticReset() {
