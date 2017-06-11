@@ -8,7 +8,9 @@ var populationSize = 512,
     matingRate = 0.5,
     matingRatio = 0.5,
     mutationRate = 0.5,
-    mutationRatio = 0.5;
+    mutationRatio = 0.5,
+    maxIterations = 500;
+var dataset = './Genetic-Algorithm/dataset-6D/train_5.txt';
 
 function geneticStart(parameter) {
     switch (parameter) {
@@ -42,8 +44,22 @@ function geneticAlgorithm() {
     readAngleWheel();
 }
 
+function updateDataset(selectedDataset) {
+    dataset = './Genetic-Algorithm/' + selectedDataset;
+    if (selectedDataset.includes('4D')) {
+        dimension = 3;
+    } else if (selectedDataset.includes('6D')) {
+        dimension = 5;
+    }
+}
+
+function updateNumberOfNeurons(value) {
+    numberOfNeurons = parseInt(value);
+}
+
 function geneticTrain() {
     document.getElementById('geneticStart').disabled = true;
+    document.getElementById('lossRate').innerHTML = 'Training ...';
     geneticStart('stop');
     fuzzyStart('stop');
     geneticReset();
@@ -52,7 +68,7 @@ function geneticTrain() {
         genes[i].randomBuild();
     }
     // Read data
-    var rawData = readTextFile('./Genetic-Algorithm/dataset-6D/train_5.txt');
+    var rawData = readTextFile(dataset);
     for (var i = 0; i < rawData.length; i++) {
         if (rawData[i] !== '') {
             input[i] = [];
@@ -64,7 +80,7 @@ function geneticTrain() {
         }
     }
     var minFitness = 1000000;
-    for (var iterations = 0; iterations < 500; iterations++) {
+    for (var iterations = 0; iterations < maxIterations; iterations++) {
         // Calcuate fitness
         for (var i = 0; i < genes.length; i++) {
             var temp = genes[i].getFitness(output, input);
