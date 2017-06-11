@@ -19,7 +19,7 @@ var Gene = {
             this.vector[0] = Math.min(Math.max(this.vector[0], 0), 1);
             this.rbf.theta = this.vector[0];
             for (var i = 0; i < Gene.numberOfNeurons; i++) {
-                this.vector[i + 1] = Math.min(Math.max(this.vector[i + 1], 0), 80);
+                this.vector[i + 1] = Math.min(Math.max(this.vector[i + 1], -40), 40);
                 this.rbf.W[i] = this.vector[i + 1];
             }
             for (var i = 1 + Gene.numberOfNeurons, j = 0; i < 1 + Gene.numberOfNeurons + Gene.numberOfNeurons * Gene.dimension; i++, j++) {
@@ -45,6 +45,7 @@ var Gene = {
             this.normalization();
         };
         gene.getFitness = function (yD, x) {
+            this.normalization();
             var value = 0;
             for (var i = 0; i < yD.length; i++) {
                 var fX = this.rbf.getOutput(x[i]);

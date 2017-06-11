@@ -45,46 +45,50 @@ function geneticTrain() {
             input[i] = [];
             var data = rawData[i].split(' ');
             for (var j = 0; j < data.length - 1; j++) {
-                input[i].push(data[j]);
+                input[i].push(parseFloat(data[j]));
             }
-            output.push(data[data.length - 1]);
+            output.push((parseFloat(data[data.length - 1]) + 40) / 80.0);
         }
     }
     var minFitness = 1000000;
-    // Calcuate fitness
-    for (var i = 0; i < genes.length; i++) {
-        var temp = genes[i].getFitness(output, input);
-        minFitness = (temp < minFitness) ? temp : minFitness;
-    }
-    // Copy gene to mating pool by tournament selection
-    for (var i = 0; i < genes.length; i++) {
-        var a, b;
-        do {
-            a = Math.floor((Math.random() * genes.length));
-            b = Math.floor((Math.random() * genes.length));
-        } while (a == b);
-        newGenes.push((genes[a].fitness < genes[b].fitness) ? genes[a] : genes[b]);
-    }
-    for (var i = 0; i < genes.length; i++) {
-        genes[i] = newGenes[i];
-    }
-    // Gene mating
-    for (var i = 0; i < genes.length; i++) {
-        if (Math.random() < matingRate) {
-            var j = Math.floor((Math.random() * genes.length));
-            geneMating(i, j, genes[i], genes[j]);
+    for (var iterations = 0; iterations < 1; iterations++) {
+        // Calcuate fitness
+        for (var i = 0; i < genes.length; i++) {
+            var temp = genes[i].getFitness(output, input);
+            minFitness = (temp < minFitness) ? temp : minFitness;
         }
-    }
-    for (var i = 0; i < genes.length; i++) {
-        genes[i] = newGenes[i];
-    }
-    // Gene mutation
-    for (var i = 0; i < genes.length; i++) {
-        if (Math.random() < mutationRate) {
-            geneMutation(genes[i]);
+        // Copy gene to mating pool by tournament selection
+        for (var i = 0; i < genes.length; i++) {
+            var a, b;
+            do {
+                a = Math.floor((Math.random() * genes.length));
+                b = Math.floor((Math.random() * genes.length));
+            } while (a == b);
+            newGenes[i] = (genes[a].fitness < genes[b].fitness) ? genes[a] : genes[b];
         }
+        for (var i = 0; i < genes.length; i++) {
+            genes[i] = newGenes[i];
+        }
+        // Gene mating
+        for (var i = 0; i < genes.length; i++) {
+            if (Math.random() < matingRate) {
+                var j = Math.floor((Math.random() * genes.length));
+                geneMating(i, j, genes[i], genes[j]);
+            }
+        }
+        for (var i = 0; i < genes.length; i++) {
+            genes[i] = newGenes[i];
+        }
+        // Gene mutation
+        for (var i = 0; i < genes.length; i++) {
+            if (Math.random() < mutationRate) {
+                geneMutation(genes[i]);
+            }
+        }
+        console.log(minFitness);
+        if (minFitness < 0.01)
+            break;
     }
-    console.log(minFitness);
 }
 
 function geneticReset() {
@@ -102,6 +106,8 @@ function geneMating(x, y, geneX, geneY) {
         nextGeneX.vector[i] = geneX.vector[i] + ratio * (geneX.vector[i] - geneY.vector[i]);
         nextGeneY.vector[i] = geneY.vector[i] - ratio * (geneX.vector[i] - geneY.vector[i]);
     }
+    nextGeneX.normalization();
+    nextGeneY.normalization();
     newGenes[x] = nextGeneX;
     newGenes[y] = nextGeneY;
 }
