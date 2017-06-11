@@ -57,6 +57,22 @@ function updateNumberOfNeurons(value) {
     numberOfNeurons = parseInt(value);
 }
 
+function updateMaxIterations(value) {
+    maxIterations = parseInt(value);
+}
+
+function updatePopulationSize(value) {
+    populationSize = parseInt(value);
+}
+
+function updateMatingRate(value) {
+    matingRate = parseFloat(value);
+}
+
+function updateMutationRate(value) {
+    mutationRate = parseFloat(value);
+}
+
 function geneticTrain() {
     document.getElementById('geneticStart').disabled = true;
     document.getElementById('lossRate').innerHTML = 'Training ...';
