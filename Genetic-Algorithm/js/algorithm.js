@@ -2,7 +2,7 @@ var geneticRun = false,
     input = [],
     output = [],
     genes = [],
-    nextGenes = [];
+    newGenes = [];
 var populationSize = 512,
     matingRate = 0.5,
     matingRatio = 0.5,
@@ -33,11 +33,12 @@ function geneticStart(parameter) {
 function geneticAlgorithm() {}
 
 function geneticTrain() {
+    geneticReset();
     for (var i = 0; i < populationSize; i++) {
         genes.push(Gene.createNew());
         genes[i].randomBuild();
     }
-    // Read Data
+    // Read data
     var rawData = readTextFile('./Fuzzy-Control-System/train4D.txt');
     for (var i = 0; i < rawData.length; i++) {
         if (rawData[i] !== '') {
@@ -49,6 +50,48 @@ function geneticTrain() {
             output.push(data[data.length - 1]);
         }
     }
+    var minFitness = 1000000;
+    // Calcuate fitness
+    for (var i = 0; i < genes.length; i++) {
+        var temp = genes[i].getFitness(output, input);
+        minFitness = (temp < minFitness) ? temp : minFitness;
+    }
+    // Copy gene to mating pool by tournament selection
+    for (var i = 0; i < genes.length; i++) {
+        var a, b;
+        do {
+            a = Math.floor((Math.random() * genes.length));
+            b = Math.floor((Math.random() * genes.length));
+        } while (a == b);
+        newGenes.push((genes[a].fitness < genes[b].fitness) ? genes[a] : genes[b]);
+    }
+    for (var i = 0; i < genes.length; i++) {
+        genes[i] = newGenes[i];
+    }
+    // Gene mating
+    for (var i = 0; i < genes.length; i++) {
+        if (Math.random() < matingRate) {
+            var j = Math.floor((Math.random() * genes.length));
+            geneMating(i, j, genes[i], genes[j]);
+        }
+    }
+    for (var i = 0; i < genes.length; i++) {
+        genes[i] = newGenes[i];
+    }
+    // Gene mutation
+    for (var i = 0; i < genes.length; i++) {
+        if (Math.random() < mutationRate) {
+            geneMutation(genes[i]);
+        }
+    }
+    console.log(minFitness);
+}
+
+function geneticReset() {
+    input = [];
+    output = [];
+    genes = [];
+    newGenes = [];
 }
 
 function geneMating(x, y, geneX, geneY) {
@@ -59,8 +102,8 @@ function geneMating(x, y, geneX, geneY) {
         nextGeneX.vector[i] = geneX.vector[i] + ratio * (geneX.vector[i] - geneY.vector[i]);
         nextGeneY.vector[i] = geneY.vector[i] - ratio * (geneX.vector[i] - geneY.vector[i]);
     }
-    newGene[x] = nextGeneX;
-    newGene[y] = nextGeneY;
+    newGenes[x] = nextGeneX;
+    newGenes[y] = nextGeneY;
 }
 
 function geneMutation(gene) {
@@ -69,6 +112,7 @@ function geneMutation(gene) {
         if (Math.random() < mutationRate)
             gene.vector[i] = gene.vector[i] + ratio * Math.random() * gene.vector[i];
     }
+    gene.normalization();
 }
 
 function readTextFile(file) {

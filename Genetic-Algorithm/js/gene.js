@@ -6,6 +6,7 @@ var Gene = {
         var gene = {};
         gene.theta = 0;
         gene.vector = [];
+        gene.fitness = 10000;
         gene.rbf = RBF.createNew();
         gene.clone = function () {
             var geneNew = Gene.createNew();
@@ -50,6 +51,7 @@ var Gene = {
                 value += Math.pow(yD[i] - fX, 2);
             }
             value = value / 2.0;
+            this.fitness = value;
             return value;
         };
         gene.getVectorTypeName = function () {
