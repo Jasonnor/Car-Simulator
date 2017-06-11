@@ -4,7 +4,6 @@ var Gene = {
     // vectorLength: 1 + numberOfNeurons + numberOfNeurons * dimension + numberOfNeurons,
     createNew: function () {
         var gene = {};
-        gene.theta = 0;
         gene.vector = [];
         gene.fitness = 10000;
         gene.rbf = RBF.createNew();

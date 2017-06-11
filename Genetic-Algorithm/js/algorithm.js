@@ -2,7 +2,8 @@ var geneticRun = false,
     input = [],
     output = [],
     genes = [],
-    newGenes = [];
+    newGenes = [],
+    bestGene;
 var populationSize = 512,
     matingRate = 0.5,
     matingRatio = 0.5,
@@ -51,12 +52,18 @@ function geneticTrain() {
         }
     }
     var minFitness = 1000000;
-    for (var iterations = 0; iterations < 1; iterations++) {
+    for (var iterations = 0; iterations < 5; iterations++) {
         // Calcuate fitness
         for (var i = 0; i < genes.length; i++) {
             var temp = genes[i].getFitness(output, input);
-            minFitness = (temp < minFitness) ? temp : minFitness;
+            if (temp < minFitness) {
+                minFitness = temp;
+                bestGene = genes[i];
+            }
         }
+        console.log(minFitness);
+        if (minFitness < 0.01)
+            break;
         // Copy gene to mating pool by tournament selection
         for (var i = 0; i < genes.length; i++) {
             var a, b;
@@ -85,10 +92,16 @@ function geneticTrain() {
                 geneMutation(genes[i]);
             }
         }
-        console.log(minFitness);
-        if (minFitness < 0.01)
-            break;
     }
+    // Calcuate fitness
+    for (var i = 0; i < genes.length; i++) {
+        var temp = genes[i].getFitness(output, input);
+        if (temp < minFitness) {
+            minFitness = temp;
+            bestGene = genes[i];
+        }
+    }
+    console.log(minFitness);
 }
 
 function geneticReset() {
