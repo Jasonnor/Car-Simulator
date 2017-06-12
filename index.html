@@ -65,6 +65,10 @@
 			<label for="mutationRate">Mutation Rate:</label>
 			<input id="mutationRate" type="text" value="0.5" style="width:20px" oninput="updateMutationRate(this.value)" />
 		</p>
+		<p>Particle Swarm Optimization:
+			<button id="psoTrain" onclick="psoTrain()">Train</button>
+			<button id="psoStart" onclick="psoStart()" disabled="disabled">Start (P)</button>
+		</p>
 		<p>
 			<textarea id="data4D" style="display:none"></textarea>
 			<textarea id="data6D" style="display:none"></textarea>
@@ -93,6 +97,8 @@
 	<script src="./Genetic-Algorithm/js/RBF.js"></script>
 	<script src="./Genetic-Algorithm/js/gene.js"></script>
 	<script src="./Genetic-Algorithm/js/algorithm.js"></script>
+	<script src="./Particle-Swarm-Optimization/js/particle.js"></script>
+	<script src="./Particle-Swarm-Optimization/js/swarm.js"></script>
 	<script src="./Car-Module/js/scene.js"></script>
 	<script src="./Car-Module/js/sensor.js"></script>
 	<script src="./Car-Module/js/car.js"></script>

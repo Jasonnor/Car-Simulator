@@ -26,6 +26,7 @@ function geneticStart(parameter) {
     if (geneticRun) {
         document.getElementById('geneticStart').innerHTML = 'Stop (G)';
         fuzzyStart('stop');
+        psoStart('stop');
         startMotion('start');
     } else {
         document.getElementById('geneticStart').innerHTML = 'Start (G)';

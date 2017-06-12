@@ -67,6 +67,8 @@ function updateMotion() {
         fuzzyControl();
     else if (geneticRun)
         geneticAlgorithm();
+    else if (psoRun)
+        particleSwarmOptimization();
     setTimeout(updateMotion, 1000 / speed);
 }
 
@@ -166,6 +168,11 @@ document.onkeydown = function (e) {
         case 71:
             // Genetic Algorithm (G)
             geneticStart();
+            break;
+
+        case 80:
+            // Particle Swarm Optimization (P)
+            psoStart();
             break;
 
         case 32:
