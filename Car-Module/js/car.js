@@ -68,7 +68,7 @@ function updateMotion() {
     else if (geneticRun)
         geneticAlgorithm();
     else if (psoRun)
-        particleSwarmOptimization();
+        pso();
     setTimeout(updateMotion, 1000 / speed);
 }
 

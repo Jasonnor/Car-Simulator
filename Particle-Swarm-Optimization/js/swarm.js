@@ -1,5 +1,9 @@
 var psoRun = false;
-var swarmSize = 512;
+var swarmSize = 512,
+    maxVelocity = 40,
+    maxX = 40,
+    cognition = 0.3,
+    social = 0.3;
 
 function psoStart(parameter) {
     switch (parameter) {
@@ -23,7 +27,7 @@ function psoStart(parameter) {
     }
 }
 
-function particleSwarmOptimization() {
+function pso() {
     /*var output = 0;
     if (dimension == 3) {
         output = bestGene.rbf.getOutput([distanceCenter, distanceRight, distanceLeft]);
@@ -32,4 +36,8 @@ function particleSwarmOptimization() {
     }
     angleWheel = (output * 80.0) - 40;
     readAngleWheel();*/
+}
+
+function psoTrain() {
+    
 }
