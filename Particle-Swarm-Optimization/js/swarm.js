@@ -1,10 +1,8 @@
 var psoRun = false,
     swarm = [],
-    newSwarm = [],
     gobalBestParticle;
 var swarmSize = 512,
     maxVelocity = 40,
-    maxX = 40,
     cognition = 0.3,
     social = 0.3;
 
@@ -116,6 +114,5 @@ function psoReset() {
     input = [];
     output = [];
     swarm = [];
-    newSwarm = [];
     gobalBestParticle = null;
 }
