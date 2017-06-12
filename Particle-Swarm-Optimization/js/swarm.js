@@ -91,6 +91,7 @@ function psoTrain() {
         for (var i = 0; i < swarm.length; i++) {
             for (var j = 0; j < swarm[i].v.length; j++) {
                 swarm[i].v[j] = swarm[i].v[j] + cognition * (personalBest[i].x[j] - swarm[i].x[j]) + social * (gobalBestParticle.x[j] - swarm[i].x[j]);
+                swarm[i].v[j] = Math.min(Math.max(swarm[i].v[j], -maxVelocity), maxVelocity);
             }
             swarm[i].move();
         }
