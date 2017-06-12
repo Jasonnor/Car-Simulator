@@ -1,4 +1,7 @@
-var psoRun = false;
+var psoRun = false,
+    swarm = [],
+    newSwarm = [],
+    gobalBestParticle;
 var swarmSize = 512,
     maxVelocity = 40,
     maxX = 40,
@@ -28,16 +31,90 @@ function psoStart(parameter) {
 }
 
 function pso() {
-    /*var output = 0;
+    var output = 0;
     if (dimension == 3) {
-        output = bestGene.rbf.getOutput([distanceCenter, distanceRight, distanceLeft]);
+        output = gobalBestParticle.rbf.getOutput([distanceCenter, distanceRight, distanceLeft]);
     } else if (dimension == 5) {
-        output = bestGene.rbf.getOutput([posX, posY, distanceCenter, distanceRight, distanceLeft]);
+        output = gobalBestParticle.rbf.getOutput([posX, posY, distanceCenter, distanceRight, distanceLeft]);
     }
     angleWheel = (output * 80.0) - 40;
-    readAngleWheel();*/
+    readAngleWheel();
 }
 
 function psoTrain() {
-    
+    document.getElementById('psoStart').disabled = true;
+    geneticStart('stop');
+    fuzzyStart('stop');
+    psoStart('stop');
+    psoReset();
+    for (var i = 0; i < swarmSize; i++) {
+        swarm.push(Particle.createNew());
+        swarm[i].randomBuild();
+    }
+    // Read data
+    var rawData = readTextFile(dataset);
+    for (var i = 0; i < rawData.length; i++) {
+        if (rawData[i] !== '') {
+            input[i] = [];
+            var data = rawData[i].split(' ');
+            for (var j = 0; j < data.length - 1; j++) {
+                input[i].push(parseFloat(data[j]));
+            }
+            output.push((parseFloat(data[data.length - 1]) + 40) / 80.0);
+        }
+    }
+    var minFitness = 1000000;
+    var personalBest = [];
+    for (var i = 0; i < swarm.length; i++) {
+        personalBest.push(Particle.createNew());
+    }
+    for (var iterations = 0; iterations < maxIterations; iterations++) {
+        // Calcuate fitness
+        for (var i = 0; i < swarm.length; i++) {
+            var temp = swarm[i].getFitness(output, input);
+            // Personal best
+            if (temp < personalBest[i].fitness) {
+                personalBest[i] = swarm[i].clone();
+                personalBest[i].fitness = temp;
+            }
+            // Gobal best
+            if (temp < minFitness) {
+                minFitness = temp;
+                gobalBestParticle = swarm[i].clone();
+                console.log(minFitness);
+                document.getElementById('lossRate').innerHTML = minFitness.toFixed(4);
+            }
+        }
+        if (minFitness < 0.001)
+            break;
+        // Update Velocity 
+        for (var i = 0; i < swarm.length; i++) {
+            for (var j = 0; j < swarm[i].v.length; j++) {
+                swarm[i].v[j] = swarm[i].v[j] + cognition * (personalBest[i].x[j] - swarm[i].x[j]) + social * (gobalBestParticle.x[j] - swarm[i].x[j]);
+            }
+            swarm[i].move();
+        }
+    }
+    // Calcuate fitness
+    for (var i = 0; i < swarm.length; i++) {
+        var temp = swarm[i].getFitness(output, input);
+        // Gobal best
+        if (temp < minFitness) {
+            minFitness = temp;
+            gobalBestParticle = swarm[i].clone();
+            console.log(minFitness);
+            document.getElementById('lossRate').innerHTML = minFitness.toFixed(4);
+        }
+    }
+    gobalBestParticle.getFitness(output, input);
+    document.getElementById('psoStart').disabled = false;
+}
+
+
+function psoReset() {
+    input = [];
+    output = [];
+    swarm = [];
+    newSwarm = [];
+    gobalBestParticle = null;
 }

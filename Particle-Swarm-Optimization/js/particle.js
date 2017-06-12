@@ -17,7 +17,7 @@ var Particle = {
         };
         particle.move = function () {
             for (var i = 0; i < this.x.length; i++)
-                x[i] += v[i];
+                this.x[i] += this.v[i];
         };
         particle.normalization = function (particle) {
             this.x[0] = Math.min(Math.max(this.x[0], 0), 1);
@@ -46,6 +46,9 @@ var Particle = {
             for (var i = 1 + numberOfNeurons + numberOfNeurons * dimension; i < 1 + numberOfNeurons + numberOfNeurons * dimension + numberOfNeurons; i++) {
                 this.x[i] = Math.random() * 10;
             }
+            for (var i = 0; i < 1 + numberOfNeurons + numberOfNeurons * dimension + numberOfNeurons; i++) {
+                this.v[i] = Math.random();
+            }
             this.normalization();
         };
         particle.getFitness = function (yD, x) {
@@ -59,12 +62,6 @@ var Particle = {
             this.fitness = value;
             return value;
         };
-        particle.distanceTo = function(target) {
-            var distance = 0;
-            for (var i = 0; i < this.x.length; i++)
-                distance += (this.x[i] - target.x[i]) * (this.x[i] - target.x[i]);
-            return distance;
-        }
         return particle;
     }
 };
