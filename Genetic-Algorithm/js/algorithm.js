@@ -103,7 +103,7 @@ function geneticTrain() {
                 minFitness = temp;
                 bestGene = genes[i].clone();
                 console.log(minFitness);
-                document.getElementById('lossRate').innerHTML = minFitness.toFixed(4);;
+                document.getElementById('lossRate').innerHTML = minFitness.toFixed(4);
             }
         }
         if (minFitness < 0.01)
@@ -144,7 +144,7 @@ function geneticTrain() {
             minFitness = temp;
             bestGene = genes[i].clone();
             console.log(minFitness);
-            document.getElementById('lossRate').innerHTML = minFitness.toFixed(4);;
+            document.getElementById('lossRate').innerHTML = minFitness.toFixed(4);
         }
     }
     bestGene.getFitness(output, input);
