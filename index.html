@@ -42,7 +42,11 @@
 			<button id="geneticTrain" onclick="geneticTrain()">Train</button>
 			<button id="geneticStart" onclick="geneticStart()" disabled="disabled">Start (G)</button>
 		</p>
-		<p>GA
+		<p>Particle Swarm Optimization:
+			<button id="psoTrain" onclick="psoTrain()">Train</button>
+			<button id="psoStart" onclick="psoStart()" disabled="disabled">Start (P)</button>
+		</p>
+		<p>
 			<label for="geneticDataset">Dataset:</label>
 			<select id="geneticDataset" onchange="updateDataset(this.value)">
 				<option value="dataset-4D/train_1.txt">4D-data-1</option>
@@ -57,17 +61,21 @@
 			<label for="numberOfNeurons">Neurons:</label>
 			<input id="numberOfNeurons" type="text" value="3" style="width:20px" oninput="updateNumberOfNeurons(this.value)" />
 		</p>
-		<p>GA
-			<label for="populationSize">Population:</label>
-			<input id="populationSize" type="text" value="512" style="width:25px" oninput="updatePopulationSize(this.value)" />
-			<label for="matingRate">Mating Rate:</label>
+		<p>
+			<label for="size">Size:</label>
+			<input id="size" type="text" value="512" style="width:25px" oninput="updateSize(this.value)" />
+			<label for="matingRate">GA Mating Rate:</label>
 			<input id="matingRate" type="text" value="0.5" style="width:20px" oninput="updateMatingRate(this.value)" />
-			<label for="mutationRate">Mutation Rate:</label>
+			<label for="mutationRate">GA Mutation Rate:</label>
 			<input id="mutationRate" type="text" value="0.5" style="width:20px" oninput="updateMutationRate(this.value)" />
 		</p>
-		<p>Particle Swarm Optimization:
-			<button id="psoTrain" onclick="psoTrain()">Train</button>
-			<button id="psoStart" onclick="psoStart()" disabled="disabled">Start (P)</button>
+		<p>
+			<label for="maxVelocity">PSO Max Velocity:</label>
+			<input id="maxVelocity" type="text" value="40" style="width:20px" oninput="updateMaxVelocity(this.value)" />
+			<label for="cognition">PSO Cognition:</label>
+			<input id="cognition" type="text" value="0.3" style="width:20px" oninput="updateCognition(this.value)" />
+			<label for="social">PSO Cognition:</label>
+			<input id="social" type="text" value="0.3" style="width:20px" oninput="updateSocial(this.value)" />
 		</p>
 		<p>
 			<textarea id="data4D" style="display:none"></textarea>

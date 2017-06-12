@@ -1,8 +1,7 @@
 var psoRun = false,
     swarm = [],
     gobalBestParticle;
-var swarmSize = 512,
-    maxVelocity = 40,
+var maxVelocity = 40,
     cognition = 0.3,
     social = 0.3;
 
@@ -28,6 +27,18 @@ function psoStart(parameter) {
     }
 }
 
+function updateMaxVelocity(value) {
+    maxVelocity = parseFloat(value);
+}
+
+function updateCognition(value) {
+    cognition = parseFloat(value);
+}
+
+function updateSocial(value) {
+    social = parseFloat(value);
+}
+
 function pso() {
     var output = 0;
     if (dimension == 3) {
@@ -45,7 +56,7 @@ function psoTrain() {
     fuzzyStart('stop');
     psoStart('stop');
     psoReset();
-    for (var i = 0; i < swarmSize; i++) {
+    for (var i = 0; i < size; i++) {
         swarm.push(Particle.createNew());
         swarm[i].randomBuild();
     }

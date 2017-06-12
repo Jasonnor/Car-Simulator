@@ -4,7 +4,7 @@ var geneticRun = false,
     genes = [],
     newGenes = [],
     bestGene;
-var populationSize = 512,
+var size = 512,
     matingRate = 0.5,
     matingRatio = 0.5,
     mutationRate = 0.5,
@@ -62,8 +62,8 @@ function updateMaxIterations(value) {
     maxIterations = parseInt(value);
 }
 
-function updatePopulationSize(value) {
-    populationSize = parseInt(value);
+function updateSize(value) {
+    size = parseInt(value);
 }
 
 function updateMatingRate(value) {
@@ -79,7 +79,7 @@ function geneticTrain() {
     geneticStart('stop');
     fuzzyStart('stop');
     geneticReset();
-    for (var i = 0; i < populationSize; i++) {
+    for (var i = 0; i < size; i++) {
         genes.push(Gene.createNew());
         genes[i].randomBuild();
     }
