@@ -46,12 +46,14 @@
 				<label for="thirdPerson">Third Person (3)</label>
 			</div>
 		</div>
-		<div class="row">Steering Wheel Angle (A/D): <span id="angleWheel">0.0</span>
+		<div class="row">
+			<div class="col s12">Steering Wheel Angle (A/D) : <span id="angleWheel">0.0</span></div>
 			<p class="range-field">
 				<input id="angleWheelRange" type="range" min="-40.0" max="40.0" value="0.0" step="0.1" oninput="updateAngleWheel()" onchange="updateAngleWheel()">
 			</p>
 		</div>
-		<div class="row">Speed: <span id="speed">100</span>
+		<div class="row">
+			<div class="col s12">Speed : <span id="speed">100</span></div>
 			<p class="range-field">
 				<input id="speedRange" type="range" min="1" max="300" value="100" oninput="updateSpeed()" onchange="updateSpeed()">
 			</p>
@@ -59,16 +61,6 @@
 		<div class="row">
 			<div class="col s5">Fuzzy Control System</div>
 			<button id="fuzzyStart" class="waves-effect waves-light btn" onclick="fuzzyStart()">Start (F)</button>
-		</div>
-		<div class="row">
-			<div class="col s5">Genetic Algorithm</div>
-			<button id="geneticTrain" class="waves-effect waves-light btn" onclick="geneticTrain()">Train</button>
-			<button id="geneticStart" class="waves-effect waves-light btn" onclick="geneticStart()" disabled="disabled">Start (G)</button>
-		</div>
-		<div class="row">
-			<div class="col s5">Particle Swarm Optimization</div>
-			<button id="psoTrain" class="waves-effect waves-light btn" onclick="psoTrain()">Train</button>
-			<button id="psoStart" class="waves-effect waves-light btn" onclick="psoStart()" disabled="disabled">Start (P)</button>
 		</div>
 		<div class="row">
 			<div class="input-field col s6">
@@ -96,32 +88,58 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="input-field col s4">
-				<input id="size" type="text" value="512" oninput="updateSize(this.value)" />
-				<label class="active" for="size">Size</label>
-			</div>
-			<div class="input-field col s4">
-				<input id="matingRate" type="text" value="0.5" oninput="updateMatingRate(this.value)" />
-				<label class="active" for="matingRate">GA Mating Rate</label>
-			</div>
-			<div class="input-field col s4">
-				<input id="mutationRate" type="text" value="0.5" oninput="updateMutationRate(this.value)" />
-				<label class="active" for="mutationRate">GA Mutation Rate</label>
-			</div>
-		</div>
-		<div class="row">
-			<div class="input-field col s4">
-				<input id="maxVelocity" type="text" value="40" oninput="updateMaxVelocity(this.value)" />
-				<label class="active" for="maxVelocity">PSO Max Velocity</label>
-			</div>
-			<div class="input-field col s4">
-				<input id="cognition" type="text" value="0.3" oninput="updateCognition(this.value)" />
-				<label class="active" for="cognition">PSO Cognition</label>
-			</div>
-			<div class="input-field col s4">
-				<input id="social" type="text" value="0.3" oninput="updateSocial(this.value)" />
-				<label class="active" for="social">PSO Social</label>
-			</div>
+			<ul class="collapsible" data-collapsible="accordion">
+				<li>
+					<div class="collapsible-header"><i class="material-icons"></i>Genetic Algorithm</div>
+					<div class="collapsible-body">
+						<div class="row">
+							<div class="col s12">
+								<button id="geneticTrain" class="waves-effect waves-light btn" onclick="geneticTrain()">Train</button>
+								<button id="geneticStart" class="waves-effect waves-light btn" onclick="geneticStart()" disabled="disabled">Start (G)</button>
+							</div>
+						</div>
+						<div class="row">
+							<div class="input-field col s4">
+								<input id="size" type="text" value="512" oninput="updateSize(this.value)" />
+								<label class="active" for="size">Size</label>
+							</div>
+							<div class="input-field col s4">
+								<input id="matingRate" type="text" value="0.5" oninput="updateMatingRate(this.value)" />
+								<label class="active" for="matingRate">GA Mating Rate</label>
+							</div>
+							<div class="input-field col s4">
+								<input id="mutationRate" type="text" value="0.5" oninput="updateMutationRate(this.value)" />
+								<label class="active" for="mutationRate">GA Mutation Rate</label>
+							</div>
+						</div>
+					</div>
+				</li>
+				<li>
+					<div class="collapsible-header"><i class="material-icons"></i>Particle Swarm Optimization</div>
+					<div class="collapsible-body">
+						<div class="row">
+							<div class="col s12">
+								<button id="psoTrain" class="waves-effect waves-light btn" onclick="psoTrain()">Train</button>
+								<button id="psoStart" class="waves-effect waves-light btn" onclick="psoStart()" disabled="disabled">Start (P)</button>
+							</div>
+						</div>
+						<div class="row">
+							<div class="input-field col s4">
+								<input id="maxVelocity" type="text" value="40" oninput="updateMaxVelocity(this.value)" />
+								<label class="active" for="maxVelocity">PSO Max Velocity</label>
+							</div>
+							<div class="input-field col s4">
+								<input id="cognition" type="text" value="0.3" oninput="updateCognition(this.value)" />
+								<label class="active" for="cognition">PSO Cognition</label>
+							</div>
+							<div class="input-field col s4">
+								<input id="social" type="text" value="0.3" oninput="updateSocial(this.value)" />
+								<label class="active" for="social">PSO Social</label>
+							</div>
+						</div>
+					</div>
+				</li>
+			</ul>
 		</div>
 		<div class="row">
 			<textarea id="data4D" style="display:none"></textarea>
@@ -152,6 +170,7 @@
 	<script>
 		$(document).ready(function () {
 			$('select').material_select();
+			$('.collapsible').collapsible();
 		});
 	</script>
 	<script src="./Fuzzy-Control-System/js/fuzzy.js"></script>
