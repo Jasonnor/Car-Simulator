@@ -118,6 +118,7 @@ function psoTrain() {
     }
     gobalBestParticle.getFitness(output, input);
     document.getElementById('psoStart').disabled = false;
+    Materialize.toast('Training finished!', 3000);
 }
 
 

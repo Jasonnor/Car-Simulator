@@ -150,6 +150,7 @@ function geneticTrain() {
     }
     bestGene.getFitness(output, input);
     document.getElementById('geneticStart').disabled = false;
+    Materialize.toast('Training finished!', 3000);
 }
 
 function geneticReset() {
