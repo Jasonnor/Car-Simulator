@@ -205,19 +205,21 @@ function animate() {
     else if (angleFix < 0)
         angleFix += 360;
     var angle = degreeToRadian(angleFix);
-    car.position.set(posX, posY, 3);
-    if (firstPerson) {
-        car.rotation.set(0, 0, angle);
-        var angle = degreeToRadian(angleCar);
-        var relativeCameraOffset = new THREE.Vector3(0, -6, 6);
-        var cameraOffset = relativeCameraOffset.applyMatrix4(car.matrixWorld);
-        camera.position.x = cameraOffset.x;
-        camera.position.y = cameraOffset.y;
-        camera.position.z = cameraOffset.z;
-        camera.lookAt(new THREE.Vector3(posX + 10.0 * Math.cos(angle), posY + 10.0 * Math.sin(angle), 6));
-    } else {
-        car.rotation.set(rotX, rotY, 0);
-        controls.update();
+    if (typeof car != 'undefined') {
+        car.position.set(posX, posY, 3);
+        if (firstPerson) {
+            car.rotation.set(0, 0, angle);
+            var angle = degreeToRadian(angleCar);
+            var relativeCameraOffset = new THREE.Vector3(0, -6, 6);
+            var cameraOffset = relativeCameraOffset.applyMatrix4(car.matrixWorld);
+            camera.position.x = cameraOffset.x;
+            camera.position.y = cameraOffset.y;
+            camera.position.z = cameraOffset.z;
+            camera.lookAt(new THREE.Vector3(posX + 10.0 * Math.cos(angle), posY + 10.0 * Math.sin(angle), 6));
+        } else {
+            car.rotation.set(rotX, rotY, 0);
+            controls.update();
+        }
     }
     // Draw Sensor
     geometrySensorCenter.vertices[0].x = posX;
