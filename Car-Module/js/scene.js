@@ -183,11 +183,11 @@ function init() {
 
 function updateCamera() {
     // First Person
-    if (document.getElementById("firstPerson").checked == true) {
+    if (document.getElementById('firstPerson').checked == true) {
         firstPerson = true;
     }
     // Third Person
-    else if (document.getElementById("thirdPerson").checked == true) {
+    else if (document.getElementById('thirdPerson').checked == true) {
         firstPerson = false;
         camera.position.set(0, 0, 120);
     }

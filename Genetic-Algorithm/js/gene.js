@@ -52,20 +52,6 @@ var Gene = {
             this.fitness = value;
             return value;
         };
-        gene.getVectorTypeName = function () {
-            var typeName = [];
-            typeName[0] = "theta";
-            for (var i = 1; i <= numberOfNeurons; i++) {
-                typeName[i] = "w" + i;
-            }
-            for (var i = 1 + numberOfNeurons, j = 0; i < 1 + numberOfNeurons + numberOfNeurons * dimension; i++, j++) {
-                typeName[i] = "m" + (j / dimension + 1) + "," + (j % dimension + 1);
-            }
-            for (var i = 1 + numberOfNeurons + numberOfNeurons * dimension, j = 0; i < 1 + numberOfNeurons + numberOfNeurons * dimension + numberOfNeurons; i++, j++) {
-                typeName[i] = "sigma" + (j + 1);
-            }
-            return typeName;
-        };
         return gene;
     }
 };
