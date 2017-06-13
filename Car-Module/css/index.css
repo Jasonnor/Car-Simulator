@@ -37,8 +37,8 @@ canvas {
 .instructions {
     position: absolute;
     display: block;
-    right: 5px;
-    bottom: 5px;
+    right: 15px;
+    bottom: 15px;
     z-index: 100;
 }
 
@@ -77,6 +77,10 @@ button {
 
 .collapsible-body>.row {
     margin: 20px 0 0 0;
+}
+
+.collapsible-header {
+    background-color: #efefef;
 }
 
 #success {
