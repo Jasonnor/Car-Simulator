@@ -20,6 +20,7 @@ var run = false,
 if (Detector.webgl) {
     init();
     animate();
+    document.getElementById('preloader').style.display = 'none';
 } else {
     var warning = Detector.getWebGLErrorMessage();
     document.getElementById('container').appendChild(warning);

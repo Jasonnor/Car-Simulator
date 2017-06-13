@@ -45,18 +45,30 @@ canvas {
 p {
     margin: 5px;
     line-height: 25px;
-    height: 25px;
     vertical-align: middle;
 }
 
-input[type=range] {
-    margin-left: 10px;
+.row {
+    margin: 5px;
+}
+
+label {
+    color: #333333 !important;
+}
+
+.preloader-wrapper {
+    position: absolute;
+    margin: auto;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
 }
 
 #success {
-    color: #30ca42;
+    color: #00c853;
 }
 
 #failure {
-    color: #f44141;
+    color: #f44336;
 }
