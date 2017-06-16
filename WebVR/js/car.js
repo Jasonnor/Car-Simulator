@@ -153,7 +153,6 @@ document.onkeydown = function (e) {
 };
 
 window.addEventListener('deviceorientation', function (event) {
-    window.orientation = 90;
     var beta = event.beta;
     beta = Math.max(Math.min(beta, 60), -60);
     angleWheel = beta * 2.0 / 3.0;

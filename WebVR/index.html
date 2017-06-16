@@ -75,7 +75,6 @@
 			<p>Press ↑/↓/←/→ to adjust the position</p>
 			<p>Press R to reset</p>
 			<p>Press 1/3 to switch camera</p>
-			<p>Press F to start fuzzy control system</p>
 		</div>
 		<div class="modal-footer">
 			<a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">OK</a>
@@ -92,6 +91,7 @@
 			$('select').material_select();
 			$('.collapsible').collapsible();
 			$('.modal').modal();
+			screen.lockOrientation('landscape');
 		});
 	</script>
 	<script src="../Car-Module/js/sensor.js"></script>
