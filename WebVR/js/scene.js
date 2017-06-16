@@ -1,4 +1,4 @@
-var scene, camera, renderer, controls, car;
+var scene, camera, renderer, effect, controls, car;
 var posX = 0.0,
     posY = 0.0,
     rotX = 0.0,
@@ -32,7 +32,11 @@ function init() {
     // Create Camera
     camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 20000);
     camera.position.set(0, 0, 120);
-    scene.add(camera);
+    //scene.add(camera);
+
+    //var gyro = new THREE.Gyroscope();
+    //scene.add(gyro);
+    //gyro.add(camera);
 
     // Create Renderer
     renderer = new THREE.WebGLRenderer();
@@ -40,13 +44,15 @@ function init() {
     renderer.setClearColor(0xffffff, 1);
     document.body.appendChild(renderer.domElement);
 
+    effect = new THREE.StereoEffect(renderer);
+
     // Create a light, set its position, and add it to the scene
     var light = new THREE.PointLight(0x000000);
     light.position.set(-100, 200, 100);
     scene.add(light);
 
     // Add OrbitControls for panning around with the mouse
-    controls = new THREE.OrbitControls(camera, renderer.domElement);
+    controls = new THREE.DeviceOrientationControls(camera);
 
     // Draw Axis
     var geometry = new THREE.Geometry();
@@ -160,6 +166,7 @@ function init() {
         car.position.set(posX, posY, 3);
         //car.geometry.attributes.position.needsUpdate = true;
         scene.add(car);
+        //car.add(gyro);
     });
 
     //Draw Move Trajectory
@@ -249,5 +256,5 @@ function animate() {
     trajectory.geometry.setDrawRange(0, Math.abs(drawCount / 3));
     trajectory.geometry.attributes.position.needsUpdate = true;
 
-    renderer.render(scene, camera);
+    effect.render(scene, camera);
 }
