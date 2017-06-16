@@ -1,0 +1,5 @@
+{
+    "name": "Car Simulator VR",
+    "display": "standalone",
+    "orientation": "landscape"
+}
