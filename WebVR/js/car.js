@@ -1,8 +1,3 @@
-function updateSpeed() {
-    speed = document.getElementById('speedRange').value;
-    document.getElementById('speed').innerHTML = speed;
-}
-
 function updateAngleWheel() {
     angleWheel = document.getElementById('angleWheelRange').value;
     document.getElementById('angleWheel').innerHTML = parseFloat(angleWheel).toFixed(1);
