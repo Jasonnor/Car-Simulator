@@ -152,6 +152,12 @@ window.addEventListener('deviceorientation', function (event) {
     beta = Math.max(Math.min(beta, 60), -60);
     angleWheel = beta * 2.0 / 3.0;
     readAngleWheel();
+    var gamma = event.gamma;
+    if (gamma > 30 && gamma < 50) {
+        startMotion();
+    } else if (gamma > -30 && gamma < -20) {
+        reset();
+    }
 }, false);
 
 setTimeout(updateMotion, 1000 / speed);
