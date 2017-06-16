@@ -87,7 +87,6 @@ function reset() {
     readAngleWheel();
 }
 
-
 document.onkeydown = function (e) {
     switch (e.keyCode) {
         case 37:
@@ -152,5 +151,13 @@ document.onkeydown = function (e) {
             break;
     }
 };
+
+window.addEventListener('deviceorientation', function (event) {
+    window.orientation = 90;
+    var beta = event.beta;
+    beta = Math.max(Math.min(beta, 60), -60);
+    angleWheel = beta * 2.0 / 3.0;
+    readAngleWheel();
+}, false);
 
 setTimeout(updateMotion, 1000 / speed);
