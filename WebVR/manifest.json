@@ -1,6 +1,18 @@
 {
+    "short_name": "Car VR",
     "name": "Car Simulator VR",
+    "icons": [{
+        "src": "./src/icon128.png",
+        "type": "image/png",
+        "sizes": "128x128"
+    }, {
+        "src": "./src/icon192.png",
+        "type": "image/png",
+        "sizes": "192x192"
+    }],
     "start_url": "./index.html",
+    "background_color": "#2bbbad",
+    "theme_color": "#26a69a",
     "display": "standalone",
     "orientation": "landscape"
 }
