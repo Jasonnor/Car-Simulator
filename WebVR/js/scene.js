@@ -49,7 +49,8 @@ function init() {
 
     // Add OrbitControls for panning around with the mouse
     //controls = new THREE.DeviceOrientationControls(camera);
-    controls = new THREE.OrbitControls(camera);
+    //controls = new THREE.OrbitControls(camera);
+    controls = new THREE.VRControls(camera);
 
     // Draw Axis
     var geometry = new THREE.Geometry();
