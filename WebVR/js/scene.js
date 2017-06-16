@@ -32,11 +32,7 @@ function init() {
     // Create Camera
     camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 20000);
     camera.position.set(0, 0, 120);
-    //scene.add(camera);
-
-    //var gyro = new THREE.Gyroscope();
-    //scene.add(gyro);
-    //gyro.add(camera);
+    scene.add(camera);
 
     // Create Renderer
     renderer = new THREE.WebGLRenderer();
@@ -52,7 +48,8 @@ function init() {
     scene.add(light);
 
     // Add OrbitControls for panning around with the mouse
-    controls = new THREE.DeviceOrientationControls(camera);
+    //controls = new THREE.DeviceOrientationControls(camera);
+    controls = new THREE.OrbitControls(camera);
 
     // Draw Axis
     var geometry = new THREE.Geometry();
@@ -166,7 +163,6 @@ function init() {
         car.position.set(posX, posY, 3);
         //car.geometry.attributes.position.needsUpdate = true;
         scene.add(car);
-        //car.add(gyro);
     });
 
     //Draw Move Trajectory
