@@ -2,12 +2,12 @@
     "short_name": "Car VR",
     "name": "Car Simulator VR",
     "icons": [{
-        "src": "./src/icon128.png",
+        "src": "./src/icon.png",
         "type": "image/png",
-        "sizes": "128x128"
+        "sizes": "512x512"
     }],
     "start_url": "./index.html",
-    "background_color": "#ffffff",
+    "background_color": "#2bbbad",
     "theme_color": "#26a69a",
     "display": "standalone",
     "orientation": "landscape"
