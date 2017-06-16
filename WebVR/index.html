@@ -32,22 +32,22 @@
 	</div>
 	<div class="control">
 		<div class="row">
-			<button id="startMotion" class="waves-effect waves-light btn" onclick="startMotion()">Start Motion (Space / M)</button>
-			<button id="reset" class="waves-effect waves-light btn" onclick="reset()">Reset (R)</button>
+			<button id="startMotion" class="waves-effect waves-light btn" onclick="startMotion()">Start Motion (Look up)</button>
+			<button id="reset" class="waves-effect waves-light btn" onclick="reset()">Reset (Look down)</button>
 		</div>
 		<div class="row" style="line-height:45px">
 			<div class="col s2">Camera</div>
 			<div class="col s4">
 				<input id="firstPerson" type="radio" name="camera" oninput="updateCamera()" onchange="updateCamera()">
-				<label for="firstPerson">First Person (1)</label>
+				<label for="firstPerson">First Person</label>
 			</div>
 			<div class="col s4">
 				<input id="thirdPerson" type="radio" name="camera" checked="checked" oninput="updateCamera()" onchange="updateCamera()">
-				<label for="thirdPerson">Third Person (3)</label>
+				<label for="thirdPerson">Third Person</label>
 			</div>
 		</div>
 		<div class="row">
-			<div class="col s12">Steering Wheel Angle (A/D) : <span id="angleWheel">0.0</span></div>
+			<div class="col s12">Steering Wheel Angle (Tilt the mobile) : <span id="angleWheel">0.0</span></div>
 			<p class="range-field">
 				<input id="angleWheelRange" type="range" min="-40.0" max="40.0" value="0.0" step="0.1" oninput="updateAngleWheel()" onchange="updateAngleWheel()">
 			</p>
