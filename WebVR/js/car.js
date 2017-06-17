@@ -61,10 +61,10 @@ function startMotion(parameter) {
             run = !run;
     }
     if (run) {
-        document.getElementById('startMotion').innerHTML = 'Stop Motion (Space / M)';
+        document.getElementById('startMotion').innerHTML = 'Stop Motion (Look up)';
         run = true;
     } else {
-        document.getElementById('startMotion').innerHTML = 'Start Motion (Space / M)';
+        document.getElementById('startMotion').innerHTML = 'Start Motion (Look up)';
         run = false;
     }
 }
