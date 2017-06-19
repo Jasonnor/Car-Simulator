@@ -85,7 +85,7 @@ Where InputA is X coordinate of the car, InputB is Y coordinate of the car, Inpu
 ## Reference
 
 + three.js - [https://threejs.org/](https://threejs.org/)
-+ FileSaver.js - [hhttps://github.com/eligrey/FileSaver.js/](https://github.com/eligrey/FileSaver.js/)
++ FileSaver.js - [https://github.com/eligrey/FileSaver.js/](https://github.com/eligrey/FileSaver.js/)
 + Materialize - [http://materializecss.com/](http://materializecss.com/)
 
 ## Contributing
