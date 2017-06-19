@@ -2,9 +2,9 @@
 
 Car Simulator use the fuzzy control system, genetic algorithm and particle swarm optimization to simulate the movement of the car on the map.
 
-Input contains the three distance sensors of the car (front, 45 degrees left and right), which can be obtained from the defined motion equation, the position of car and the angle between the car and the horizontal axis. Output is the steering wheel rotation angle.
+Input contains the three distance sensors of the car (front, 45 degrees left and right), which can be obtained from the defined motion equation, the position of car and the angle between the car and the horizontal axis. Output is the rotation angle of steering wheel.
 
-The target is to reach the end without encountering the wall and output the movement trajectory (including the position of each point in time, the sensor value and the steering wheel rotation angle) as a text file, then display on the graphical interface.
+The target is to reach the end line without encountering the wall and output the movement trajectory (including the position of each point in time, the sensor value and the rotation angle of steering wheel) as a text file, then display on the graphical interface.
 
 The motion equation of the simulated car is as follows:
 
@@ -37,7 +37,7 @@ Car Simulator also support the VR device, please open this [page](https://jasonn
 1. Status
 2. Control button
 3. Camera first person / third person switch
-4. Steering wheel rotation angle and moving speed
+4. Rotation angle of steering wheel and moving speed
 5. Start the fuzzy control system
 6. RBFN parameters setting
 7. GA parameters setting
@@ -56,7 +56,7 @@ Car Simulator also support the VR device, please open this [page](https://jasonn
     InputA2 InputB2 InputC2 Output2
     ...
 
-Where InputA is value of center distance sensor, InputB is value of right distance sensor, InputC is value of left distance sensor and output is steering wheel rotation angle. The default [datasets](Genetic-Algorithm/dataset-4D) can be found here.
+Where InputA is value of center distance sensor, InputB is value of right distance sensor, InputC is value of left distance sensor and output is rotation angle of steering wheel. The default datasets can be found [here](Genetic-Algorithm/dataset-4D).
 
 ## 6-Dimensional Output Data Format
 
@@ -64,7 +64,7 @@ Where InputA is value of center distance sensor, InputB is value of right distan
     InputA2 InputB2 InputC2 InputD1 InputE1 Output2
     ...
 
-Where InputA is X coordinate of the car, InputB is Y coordinate of the car, InputC is value of center distance sensor, InputD is value of right distance sensor, InputE is value of left distance sensor and output is steering wheel rotation angle. The default [datasets](Genetic-Algorithm/dataset-6D) can be found here.
+Where InputA is X coordinate of the car, InputB is Y coordinate of the car, InputC is value of center distance sensor, InputD is value of right distance sensor, InputE is value of left distance sensor and output is rotation angle of steering wheel. The default datasets can be found [here](Genetic-Algorithm/dataset-6D).
 
 ## Preview
 
