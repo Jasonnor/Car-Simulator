@@ -49,7 +49,6 @@ Use the headset VR device to tilt the head (or the phone) to control the steerin
 ## Reference
 
 + three.js - [https://threejs.org/](https://threejs.org/)
-+ FileSaver.js - [https://github.com/eligrey/FileSaver.js/](https://github.com/eligrey/FileSaver.js/)
 + Materialize - [http://materializecss.com/](http://materializecss.com/)
 
 ## Contributing
