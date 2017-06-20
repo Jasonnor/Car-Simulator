@@ -8,17 +8,15 @@ Car Simulator VR can be controlled using a VR device.
 
 1. Open this [page](https://jasonnor.github.io/Car-Simulator/WebVR) with your mobile browser (suggested for Google Chrome)
 
-<img src="assets/install-01.jpg" alt="install" style="width: 400px;"/>
+![install](assets/install-01.jpg)
 
 2. Click the toolbar, select "Add to homescreen" and press "Add"
 
-<img src="assets/install-02.jpg" alt="install" style="width: 400px;"/>
-<img src="assets/install-03.jpg" alt="install" style="width: 400px;"/>
+![install](assets/install-02.jpg) ![install](assets/install-03.jpg)
 
 3. You will be able to see Car VR Web App on homescreen, click to enter
 
-<img src="assets/install-04.jpg" alt="install" style="width: 400px;"/>
-<img src="assets/install-05.jpg" alt="install" style="width: 400px;"/>
+![install](assets/install-04.jpg) ![install](assets/install-05.jpg)
 
 4. The screen will automatically become horizontal screen, then you can use the VR device to experience
 
