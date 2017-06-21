@@ -42,7 +42,19 @@ function updateMotion() {
             document.getElementById('success').style.display = 'none';
             document.getElementById('failure').style.display = 'block';
             failure = true;
-        } else if (posY >= 37 && posX <= 30 && posX >= 18) {
+        } else if (end[4] > 0 && posX >= end[0] && posY >= end[1] && posY <= end[3]) {
+            document.getElementById('success').style.display = 'block';
+            document.getElementById('failure').style.display = 'none';
+            startMotion('stop');
+        } else if (end[4] < 0 && posX <= end[0] && posY >= end[1] && posY <= end[3]) {
+            document.getElementById('success').style.display = 'block';
+            document.getElementById('failure').style.display = 'none';
+            startMotion('stop');
+        } else if (end[5] > 0 && posY >= end[1] && posX >= end[0] && posX <= end[2]) {
+            document.getElementById('success').style.display = 'block';
+            document.getElementById('failure').style.display = 'none';
+            startMotion('stop');
+        } else if (end[5] < 0 && posY <= end[1] && posX >= end[0] && posX <= end[2]) {
             document.getElementById('success').style.display = 'block';
             document.getElementById('failure').style.display = 'none';
             startMotion('stop');

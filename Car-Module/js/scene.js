@@ -27,6 +27,7 @@ var map1 = [
         [6, 10, 30, 10, 0, -1],
         [30, 10, 30, 50, 1, 0]
     ],
+    end1 = [18, 37, 30, 37, 0, 1],
     map2 = [
         [-6, -13, 30, -13, 0, 1],
         [-6, -13, -6, 50, -1, 0],
@@ -35,12 +36,16 @@ var map1 = [
         [6, -13, 6, 37, 1, 0],
         [18, 0, 18, 50, 1, 0]
     ],
+    end2 = [18, -13, 18, 0, 1, 0],
     map3 = [],
-    map = map1;
+    end3 = [],
+    map = map1,
+    end = end1;
 
 var wallHeight = 10,
     wallWidth = 2,
-    walls = [];
+    walls = [],
+    endline;
 
 if (Detector.webgl) {
     init();
@@ -86,10 +91,10 @@ function init() {
     var axis = new THREE.Line(geometry, material);
     scene.add(axis);
 
-    // Draw End
+    // Draw Endline
     var geometry = new THREE.Geometry();
-    geometry.vertices.push(new THREE.Vector3(18, 37, 0));
-    geometry.vertices.push(new THREE.Vector3(30, 37, 0));
+    geometry.vertices.push(new THREE.Vector3(end[0], end[1], 0));
+    geometry.vertices.push(new THREE.Vector3(end[2], end[3], 0));
     geometry.computeLineDistances();
     var material = new THREE.LineDashedMaterial({
         color: 0xff0000,
@@ -97,8 +102,8 @@ function init() {
         gapSize: 0.5,
         linewidth: 2
     });
-    var mesh = new THREE.Line(geometry, material);
-    scene.add(mesh);
+    endline = new THREE.Line(geometry, material);
+    scene.add(endline);
 
     // Draw Sensor
     geometrySensorCenter = new THREE.Geometry();
@@ -213,12 +218,15 @@ function updateMap(value) {
     switch (value) {
         case 'map1':
             map = map1;
+            end = end1;
             break;
         case 'map2':
             map = map2;
+            end = end2;
             break;
         case 'map3':
             map = map3;
+            end = end3;
             break;
     }
     walls.forEach(function (wall) {
@@ -244,6 +252,19 @@ function updateMap(value) {
             ++count;
         });
     });
+    scene.remove(endline);
+    var geometry = new THREE.Geometry();
+    geometry.vertices.push(new THREE.Vector3(end[0], end[1], 0));
+    geometry.vertices.push(new THREE.Vector3(end[2], end[3], 0));
+    geometry.computeLineDistances();
+    var material = new THREE.LineDashedMaterial({
+        color: 0xff0000,
+        dashSize: 0.5,
+        gapSize: 0.5,
+        linewidth: 2
+    });
+    endline = new THREE.Line(geometry, material);
+    scene.add(endline);
 }
 
 function degreeToRadian(degree) {
