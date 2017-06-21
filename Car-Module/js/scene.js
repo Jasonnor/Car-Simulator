@@ -274,6 +274,7 @@ function updateMap(value) {
     });
     endline = new THREE.Line(geometry, material);
     scene.add(endline);
+    reset();
 }
 
 function degreeToRadian(degree) {
