@@ -73,31 +73,6 @@
 			<button id="fuzzyStart" class="waves-effect waves-light btn" onclick="fuzzyStart()">Start (F)</button>
 		</div>
 		<div class="row">
-			<div class="input-field col s6">
-				<select id="geneticDataset" onchange="updateDataset(this.value)">
-					<optgroup label="4D Datasets">
-						<option value="dataset-4D/train_1.txt">4D-data-1</option>
-						<option value="dataset-4D/train_3.txt">4D-data-2</option>
-						<option value="dataset-4D/train_5.txt">4D-data-3</option>
-					</optgroup>
-					<optgroup label="6D Datasets">
-						<option value="dataset-6D/train_5.txt" selected>6D-data-1</option>
-						<option value="dataset-6D/train_3.txt">6D-data-2</option>
-						<option value="dataset-6D/train_1.txt">6D-data-3</option>
-					</optgroup>
-				</select>
-				<label>Dataset</label>
-			</div>
-			<div class="input-field col s3">
-				<input id="maxIterations" type="text" value="500" oninput="updateMaxIterations(this.value)" />
-				<label class="active" for="maxIterations">Max Iterations</label>
-			</div>
-			<div class="input-field col s3">
-				<input id="numberOfNeurons" type="text" value="3" oninput="updateNumberOfNeurons(this.value)" />
-				<label class="active" for="numberOfNeurons">Neurons</label>
-			</div>
-		</div>
-		<div class="row">
 			<ul class="collapsible" data-collapsible="accordion">
 				<li>
 					<div class="collapsible-header"><i class="material-icons"></i>Genetic Algorithm</div>
@@ -150,6 +125,31 @@
 					</div>
 				</li>
 			</ul>
+		</div>
+		<div class="row">
+			<div class="input-field col s6">
+				<select id="geneticDataset" onchange="updateDataset(this.value)">
+					<optgroup label="4D Datasets">
+						<option value="dataset-4D/train_1.txt">4D-data-1</option>
+						<option value="dataset-4D/train_3.txt">4D-data-2</option>
+						<option value="dataset-4D/train_5.txt">4D-data-3</option>
+					</optgroup>
+					<optgroup label="6D Datasets">
+						<option value="dataset-6D/train_5.txt" selected>6D-data-1</option>
+						<option value="dataset-6D/train_3.txt">6D-data-2</option>
+						<option value="dataset-6D/train_1.txt">6D-data-3</option>
+					</optgroup>
+				</select>
+				<label>Dataset</label>
+			</div>
+			<div class="input-field col s3">
+				<input id="maxIterations" type="text" value="500" oninput="updateMaxIterations(this.value)" />
+				<label class="active" for="maxIterations">Max Iterations</label>
+			</div>
+			<div class="input-field col s3">
+				<input id="numberOfNeurons" type="text" value="3" oninput="updateNumberOfNeurons(this.value)" />
+				<label class="active" for="numberOfNeurons">Neurons</label>
+			</div>
 		</div>
 		<div class="row">
 			<textarea id="data4D" style="display:none"></textarea>
