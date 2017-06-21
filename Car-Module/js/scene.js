@@ -43,7 +43,7 @@ var map1 = [
     end = end1;
 
 var wallHeight = 10,
-    wallWidth = 2,
+    wallWidth = 1,
     walls = [],
     endline;
 
@@ -298,20 +298,20 @@ function animate() {
     // Draw Sensor
     geometrySensorCenter.vertices[0].x = posX;
     geometrySensorCenter.vertices[0].y = posY;
-    geometrySensorCenter.vertices[1].x = posX + distanceCenter * Math.cos(degreeToRadian(angleCar));
-    geometrySensorCenter.vertices[1].y = posY + distanceCenter * Math.sin(degreeToRadian(angleCar));
+    geometrySensorCenter.vertices[1].x = posX + (distanceCenter + 3) * Math.cos(degreeToRadian(angleCar));
+    geometrySensorCenter.vertices[1].y = posY + (distanceCenter + 3) * Math.sin(degreeToRadian(angleCar));
     lineSensorCenter.geometry.verticesNeedUpdate = true;
 
     geometrySensorRight.vertices[0].x = posX;
     geometrySensorRight.vertices[0].y = posY;
-    geometrySensorRight.vertices[1].x = posX + distanceRight * Math.cos(degreeToRadian(angleCar - 45));
-    geometrySensorRight.vertices[1].y = posY + distanceRight * Math.sin(degreeToRadian(angleCar - 45));
+    geometrySensorRight.vertices[1].x = posX + (distanceRight + 3) * Math.cos(degreeToRadian(angleCar - 45));
+    geometrySensorRight.vertices[1].y = posY + (distanceRight + 3) * Math.sin(degreeToRadian(angleCar - 45));
     lineSensorRight.geometry.verticesNeedUpdate = true;
 
     geometrySensorLeft.vertices[0].x = posX;
     geometrySensorLeft.vertices[0].y = posY;
-    geometrySensorLeft.vertices[1].x = posX + distanceLeft * Math.cos(degreeToRadian(angleCar + 45));
-    geometrySensorLeft.vertices[1].y = posY + distanceLeft * Math.sin(degreeToRadian(angleCar + 45));
+    geometrySensorLeft.vertices[1].x = posX + (distanceLeft + 3) * Math.cos(degreeToRadian(angleCar + 45));
+    geometrySensorLeft.vertices[1].y = posY + (distanceLeft + 3) * Math.sin(degreeToRadian(angleCar + 45));
     lineSensorLeft.geometry.verticesNeedUpdate = true;
 
     // Draw Trajectory

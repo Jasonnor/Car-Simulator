@@ -35,5 +35,5 @@ function getDistance(xStart, yStart, angleCar, type) {
             }
         }
     };
-    return (length == 100000) ? -1 : length;
+    return (length == 100000) ? -1 : length - 3;
 }
