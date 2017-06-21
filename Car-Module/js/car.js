@@ -38,7 +38,7 @@ function updateMotion() {
         document.getElementById('distanceCenter').innerHTML = distanceCenter.toFixed(4);
         document.getElementById('distanceRight').innerHTML = distanceRight.toFixed(4);
         document.getElementById('distanceLeft').innerHTML = distanceLeft.toFixed(4);
-        if (failure || distanceCenter == -1 || distanceRight == -1 || distanceLeft == -1) {
+        if (failure || distanceCenter == -1 || distanceRight == -1 || distanceLeft == -1 || distanceCenter == 0 || distanceRight == 0 || distanceLeft == 0) {
             document.getElementById('success').style.display = 'none';
             document.getElementById('failure').style.display = 'block';
             failure = true;

@@ -17,6 +17,31 @@ var run = false,
     firstPerson = false,
     failure = false;
 
+var map1 = [
+        [-6, -13, 6, -13, 0, 1],
+        [-6, -13, -6, 22, -1, 0],
+        [-6, 22, 18, 22, 0, 1],
+        [18, 22, 18, 50, -1, 0],
+        [18, 50, 30, 50, 0, -1],
+        [6, -13, 6, 10, 1, 0],
+        [6, 10, 30, 10, 0, -1],
+        [30, 10, 30, 50, 1, 0]
+    ],
+    map2 = [
+        [-6, -13, 30, -13, 0, 1],
+        [-6, -13, -6, 50, -1, 0],
+        [-6, 50, 30, 50, 0, -1],
+        [30, -13, 30, 50, 1, 0],
+        [6, -13, 6, 37, 1, 0],
+        [18, 0, 18, 50, 1, 0]
+    ],
+    map3 = [],
+    map = map1;
+
+var wallHeight = 10,
+    wallWidth = 2,
+    walls = [];
+
 if (Detector.webgl) {
     init();
     animate();
@@ -99,34 +124,24 @@ function init() {
     scene.add(lineSensorLeft);
 
     // Draw Map
-    var map = [
-        [-6, -13, 6, -13, 0, 1],
-        [-6, -13, -6, 22, -1, 0],
-        [-6, 22, 18, 22, 0, 1],
-        [18, 22, 18, 50, -1, 0],
-        [18, 50, 30, 50, 0, -1],
-        [6, -13, 6, 10, 1, 0],
-        [6, 10, 30, 10, 0, -1],
-        [30, 10, 30, 50, 1, 0]
-    ];
-    var wallHeight = 10;
-    var wallWidth = 2;
     var loader = new THREE.TextureLoader();
     loader.load('./Car-Module/src/texture_wall.jpg', function (texture) {
         material = new THREE.MeshBasicMaterial({
             map: texture
         });
+        var count = 0;
         map.forEach(function (coordinate) {
             var xDistance = coordinate[2] - coordinate[0];
             var yDistance = coordinate[3] - coordinate[1];
             var distance = Math.sqrt(xDistance * xDistance + yDistance * yDistance);
             var radians = Math.atan2(yDistance, xDistance);
             geometry = new THREE.BoxGeometry(distance + Math.abs(coordinate[5] * wallWidth), wallWidth, wallHeight);
-            var wall = new THREE.Mesh(geometry, material);
-            wall.position.set((coordinate[0] + coordinate[2]) / 2 + coordinate[4] * wallWidth / 2 - coordinate[5] * wallWidth / 2,
+            walls[count] = new THREE.Mesh(geometry, material);
+            walls[count].position.set((coordinate[0] + coordinate[2]) / 2 + coordinate[4] * wallWidth / 2 - coordinate[5] * wallWidth / 2,
                 (coordinate[1] + coordinate[3]) / 2 + coordinate[5] * wallWidth / 2, wallHeight / 2);
-            wall.rotateZ(radians);
-            scene.add(wall);
+            walls[count].rotateZ(radians);
+            scene.add(walls[count]);
+            ++count;
         });
     });
 
@@ -192,6 +207,43 @@ function updateCamera() {
         firstPerson = false;
         camera.position.set(0, 0, 120);
     }
+}
+
+function updateMap(value) {
+    switch (value) {
+        case 'map1':
+            map = map1;
+            break;
+        case 'map2':
+            map = map2;
+            break;
+        case 'map3':
+            map = map3;
+            break;
+    }
+    walls.forEach(function (wall) {
+        scene.remove(wall);
+    });
+    var loader = new THREE.TextureLoader();
+    loader.load('./Car-Module/src/texture_wall.jpg', function (texture) {
+        material = new THREE.MeshBasicMaterial({
+            map: texture
+        });
+        var count = 0;
+        map.forEach(function (coordinate) {
+            var xDistance = coordinate[2] - coordinate[0];
+            var yDistance = coordinate[3] - coordinate[1];
+            var distance = Math.sqrt(xDistance * xDistance + yDistance * yDistance);
+            var radians = Math.atan2(yDistance, xDistance);
+            geometry = new THREE.BoxGeometry(distance + Math.abs(coordinate[5] * wallWidth), wallWidth, wallHeight);
+            walls[count] = new THREE.Mesh(geometry, material);
+            walls[count].position.set((coordinate[0] + coordinate[2]) / 2 + coordinate[4] * wallWidth / 2 - coordinate[5] * wallWidth / 2,
+                (coordinate[1] + coordinate[3]) / 2 + coordinate[5] * wallWidth / 2, wallHeight / 2);
+            walls[count].rotateZ(radians);
+            scene.add(walls[count]);
+            ++count;
+        });
+    });
 }
 
 function degreeToRadian(degree) {

@@ -47,6 +47,16 @@
 			</div>
 		</div>
 		<div class="row">
+			<div class="input-field col s10">
+				<select id="map" onchange="updateMap(this.value)">
+						<option value="map1" selected>Track 1</option>
+						<option value="map2">Track 2</option>
+						<option value="map3">Track 3</option>
+				</select>
+				<label>Map</label>
+			</div>
+		</div>
+		<div class="row">
 			<div class="col s12">Steering Wheel Angle (A/D) : <span id="angleWheel">0.0</span></div>
 			<p class="range-field">
 				<input id="angleWheelRange" type="range" min="-40.0" max="40.0" value="0.0" step="0.1" oninput="updateAngleWheel()" onchange="updateAngleWheel()">
@@ -76,7 +86,7 @@
 						<option value="dataset-6D/train_1.txt">6D-data-3</option>
 					</optgroup>
 				</select>
-				<label>Dataset:</label>
+				<label>Dataset</label>
 			</div>
 			<div class="input-field col s3">
 				<input id="maxIterations" type="text" value="500" oninput="updateMaxIterations(this.value)" />
