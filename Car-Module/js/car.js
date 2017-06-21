@@ -38,7 +38,7 @@ function updateMotion() {
         document.getElementById('distanceCenter').innerHTML = distanceCenter.toFixed(4);
         document.getElementById('distanceRight').innerHTML = distanceRight.toFixed(4);
         document.getElementById('distanceLeft').innerHTML = distanceLeft.toFixed(4);
-        if (failure || distanceCenter == -1 || distanceRight == -1 || distanceLeft == -1 || distanceCenter == 0 || distanceRight == 0 || distanceLeft == 0) {
+        if (failure || distanceCenter < 0.05 || distanceRight < 0.05 || distanceLeft < 0.05) {
             document.getElementById('success').style.display = 'none';
             document.getElementById('failure').style.display = 'block';
             failure = true;
@@ -107,9 +107,9 @@ function startMotion(parameter) {
 function reset() {
     posX = posY = rotX = rotY = angleWheel = 0.0;
     angleCar = 90.0;
-    distanceCenter = 22;
-    distanceRight = 8.4853;
-    distanceLeft = 8.4853;
+    distanceCenter = 0;
+    distanceRight = 0;
+    distanceLeft = 0;
     drawCount = 0;
     failure = false;
     document.getElementById('success').style.display = 'none';

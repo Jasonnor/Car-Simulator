@@ -6,9 +6,9 @@ var posX = 0.0,
     angleWheel = 0.0,
     angleCar = 90.0,
     speed = 100,
-    distanceCenter = 22,
-    distanceRight = 8.4853,
-    distanceLeft = 8.4853;
+    distanceCenter = 0,
+    distanceRight = 0,
+    distanceLeft = 0;
 
 var geometrySensorCenter, lineSensorCenter, geometrySensorLeft, lineSensorLeft, geometrySensorRight, lineSensorRight;
 var geometryTrajectory, trajectory, drawCount = 0;
