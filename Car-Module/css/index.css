@@ -19,7 +19,7 @@ canvas {
 .control {
     position: absolute;
     display: block;
-    bottom: 5px;
+    bottom: 15px;
     left: 5px;
     z-index: 100;
 }
@@ -49,7 +49,7 @@ p {
 }
 
 .row {
-    margin: 10px;
+    margin: 0;
 }
 
 label {
