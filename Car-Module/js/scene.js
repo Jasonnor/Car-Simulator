@@ -95,7 +95,7 @@ function init() {
     geometry.vertices.push(new THREE.Vector3(0, 500, 0));
     geometry.vertices.push(new THREE.Vector3(0, -500, 0));
     var material = new THREE.LineBasicMaterial({
-        color: 0x0000ff
+        color: 0xABA7A3
     });
     var axis = new THREE.Line(geometry, material);
     scene.add(axis);
