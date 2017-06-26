@@ -1,6 +1,6 @@
 # [Car Simulator](https://jasonnor.github.io/Car-Simulator/)
 
-Car Simulator use the fuzzy control system, genetic algorithm and particle swarm optimization to simulate the movement of the car on the map. It also support VR device, see [here](WebVR/) for details.
+Car Simulator use the fuzzy control system, genetic algorithm and particle swarm optimization to simulate the movement of the **autonomous car** on the map. It also support VR device, see [here](WebVR/) for details.
 
 Input contains the three distance sensors of the car (front, 45 degrees left and right), which can be obtained from the defined motion equation, the position of car and the angle between the car and the horizontal axis. Output is the rotation angle of steering wheel.
 
